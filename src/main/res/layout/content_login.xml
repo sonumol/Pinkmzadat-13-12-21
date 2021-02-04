@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.platinummzadat.qa.views.login.LoginActivity"
+    tools:showIn="@layout/activity_login">
+
+
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_hammer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gradient_primary_transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="148dp"
+                android:layout_height="148dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/LoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/login_register" />
+            <RadioGroup
+                android:id="@+id/radioGroupType"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginRight="32dp"
+                android:paddingVertical="8dp"
+                android:checkedButton="@id/radioPersonal"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:background="#024CAF50">
+
+                    <RadioButton
+                        android:id="@+id/radioPersonal"
+                        style="@style/LoginTitle"
+
+                        android:backgroundTint="@color/primary_button_text_color"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/primary_button_text_color"
+                        android:textColor="@color/primary_button_text_color"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioCompany"
+                        style="@style/LoginTitle"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/company"
+                        android:buttonTint="@color/primary_button_text_color"
+                        android:textColor="@color/primary_button_text_color"
+                        android:textSize="16sp" />
+            </RadioGroup>
+            <EditText
+                android:id="@+id/etQatarId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="32dp"
+                android:textCursorDrawable="@drawable/black_cursor"
+                android:backgroundTint="#fafafa"
+                android:digits="0123456789"
+                android:ems="10"
+                android:hint="@string/enter_qatar_id"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:nextFocusDown="@+id/etMobileNumber"
+                android:textColor="@color/colorEditTextLogin"
+                android:textColorHint="@color/colorTextHintLogin"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/etMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#fafafa"
+                android:layout_marginRight="32dp"
+                android:digits="0123456789"
+                android:ems="10"
+
+                android:textCursorDrawable="@drawable/black_cursor"
+                android:hint="@string/enter_mobile_no"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLength="8"
+                android:textColor="@color/colorEditTextLogin"
+                android:textColorHint="@color/colorTextHintLogin"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:id="@+id/llTac"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginRight="32dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:buttonTint="#fafafa"
+                    android:id="@+id/cbAccept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#fafafa" />
+
+                <TextView
+                    android:id="@+id/tvTac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="6dp"
+                    android:textSize="12sp"
+
+                    android:text="@string/read_terms_and_conditions"
+                    android:textColor="#fafafa" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp">
+
+
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/grp11"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </ImageView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/button_yellow"
+                android:clickable="true"
+                app:layout_constraintBottom_toTopOf="@+id/tvSkip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/submit"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/textView2"
+                    app:srcCompat="@drawable/ic_angular_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvSkip"
+                style="@style/LoginSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+
+                android:padding="8dp"
+                android:text="@string/skip_to_home_page"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

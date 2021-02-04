@@ -1,8 +1,6 @@
 apply plugin: 'cipher.so'
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 apply plugin: 'com.google.gms.google-services'
@@ -114,7 +112,7 @@ cipher.so {
             value = 'KLOUDBOY123'
         }
         serverApi {
-            value = "https://app.platinummzadat.qa/Apiandro933/"
+            value = "https://app.platinummzadat.qa/Apiandro934/"
         }
     }
 }

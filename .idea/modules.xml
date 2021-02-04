@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/635126505/MzadatBlack.iml" filepath="$PROJECT_DIR$/.idea/modules/635126505/MzadatBlack.iml" group="MzadatBlack" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app.iml" group="MzadatBlack/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1229716527/wolfpack.iml" filepath="$PROJECT_DIR$/.idea/modules/-1229716527/wolfpack.iml" group="MzadatBlack/wolfpack" />
+    </modules>
+  </component>
+</project>

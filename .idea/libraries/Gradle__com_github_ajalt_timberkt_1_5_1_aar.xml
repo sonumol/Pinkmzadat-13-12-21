@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.ajalt:timberkt:1.5.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66a28653847e0033034e689fa68a541c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66a28653847e0033034e689fa68a541c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ajalt/timberkt/1.5.1/65b1cc7bcfb877ff173fa980fd514fc8b0a53ffd/timberkt-1.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

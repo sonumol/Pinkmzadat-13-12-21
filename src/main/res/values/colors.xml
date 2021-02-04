@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#7A113C</color>
+    <color name="colorPrimaryTrans">#85CF3273</color>
+    <color name="colorPrimaryDark">#7A113C</color>
+    <color name="colorAccent">#C82B6C</color>
+    <color name="colorBoxBorder">#66ffffff</color>
+    <color name="colorYellow">#C7A456</color>
+    <color name="colorYellowDark">#997A3C</color>
+    <color name="colorYellowLight">#DBBB74</color>
+    <color name="colorTextHintLogin">#fafafa</color>
+    <color name="colorEditTextLogin">#ffffff</color>
+    <color name="colorBackground">#85CF3273</color>
+    <color name="colorBackgroundDark">#7A113C</color>
+    <color name="colorBackgroundWhite">#ebebeb</color>
+    <color name="colorBackgroundDarkWhite">#d3d3d3</color>
+    <color name="colorDashSubTitle">#fdfdfd</color>
+    <!--<color name="colorDivider">#BBBBBB</color>-->
+    <color name="colorDivider">#5f543e</color>
+    <color name="colorShimmer">#d9d9d9</color>
+    <color name="colorNavIcons">#747474</color>
+    <color name="colorBidPrice">#b94140</color>
+    <color name="colorDividerLight">#DBDBDB</color>
+    <color name="colorProfileText">#201e1f</color>
+    <color name="colorProfileIcons">#4c4d4f </color>
+    <color name="colorContactUsLocation">#ff4b57</color>
+    <color name="colorContactUsPhone">#83d179</color>
+    <color name="colorContactUsMail">#4bc2ff</color>
+    <color name="colorDepositAmountBlack">#222222</color>
+    <color name="colorDepositAmountRed">#E02323</color>
+    <color name="colorPrimaryLight">#85CF3273</color>
+</resources>

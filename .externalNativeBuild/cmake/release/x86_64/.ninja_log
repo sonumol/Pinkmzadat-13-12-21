@@ -1,0 +1,4 @@
+# ninja log v5
+0	825	0	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5f91ad74ccc817b7
+0	844	0	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	db280b40c22394fb
+844	905	0	/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/release/obj/x86_64/libcipher-lib.so	de2490c453a78d7a

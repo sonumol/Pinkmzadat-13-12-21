@@ -1,0 +1,17 @@
+{
+  "buildFiles": [
+    "/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/build/cipher.so/cmake/CMakeLists.txt",
+    "/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/build/cipher.so/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/mba/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/mba/AndroidStudioProjects/weblanza\\ Mzadat/PM-Android\\ Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64 --target clean"
+  ],
+  "libraries": {
+    "cipher-lib-Release-x86_64": {
+      "artifactName": "cipher-lib",
+      "buildCommand": "/home/mba/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/mba/AndroidStudioProjects/weblanza\\ Mzadat/PM-Android\\ Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64 --target cipher-lib",
+      "abi": "x86_64",
+      "output": "/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/release/obj/x86_64/libcipher-lib.so"
+    }
+  }
+}

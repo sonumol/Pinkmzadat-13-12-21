@@ -1,0 +1,5 @@
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/armeabi-v7a/cipher.out/CMakeFiles/edit_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/armeabi-v7a/cipher.out/CMakeFiles/rebuild_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/armeabi-v7a/cipher.out/CMakeFiles/cipher-lib.dir

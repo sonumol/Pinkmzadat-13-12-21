@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.platinummzadat.qa">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".views.companyregister.RegisterAsCompanyActivity"
+            android:label="@string/REGISTER_AS_COMPANY"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity
+            android:name=".views.registration.profilephoto.ProceedMessage"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".views.tosactivity.TermsOfServiceActivity"
+            android:label="@string/title_activity_terms_of_service"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.deeplink.DeepLinkActivity"
+            android:label="@string/title_activity_deep_link">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app.platinummzadat.qa"
+                    android:pathPrefix="/home"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.root.profile.deposit.PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".firebase.MzadatNotificationService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!--
+ <provider
+            tools:replace="android:authorities"
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.weblanza.mzadat.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                tools:replace="android:resource"
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        -->
+        <receiver
+            android:name=".views.otpverification.MySMSBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".views.root.search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.root.details.slider.SliderActivity"
+            android:label="@string/title_activity_slider"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Black" />
+        <activity
+            android:name=".views.registration.profilephoto.ProfilePhotoRegistrationActivity"
+            android:label="@string/title_activity_profile_photo_registration"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.registration.password.PasswordActivity"
+            android:label="@string/title_activity_password"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".views.otpverification.OtpVerificationActivity"
+            android:label="@string/title_activity_otp_verification"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.root.RootActivity"
+            android:label="@string/title_activity_dashboard"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="mzadat.new_notification" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.splash.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".views.welcome.WelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>

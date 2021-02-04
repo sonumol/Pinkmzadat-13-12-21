@@ -1,0 +1,56 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Black" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="LoginTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorYellow</item>
+    </style>
+
+    <style name="LoginSubTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorYellow</item>
+    </style>
+
+    <style name="FilterButton">
+        <item name="android:background">@drawable/filter_bg</item>
+        <item name="android:textColor">@color/filter_text_color</item>
+    </style>
+
+    <style name="Shimmer">
+        <item name="shimmer_mask_width">1</item>
+        <item name="shimmer_gradient_center_color_width">0.5</item>
+        <item name="shimmer_color">@color/colorShimmer</item>
+        <item name="shimmer_auto_start">true</item>
+        <item name="shimmer_angle">30</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/corner_radius</item>
+    </style>
+</resources>

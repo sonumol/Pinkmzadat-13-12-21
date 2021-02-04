@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.nishinraj:chipspinner:0.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0bcc6fcf040ef4e5ed9a20f853f515b7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0bcc6fcf040ef4e5ed9a20f853f515b7/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.nishinraj/chipspinner/0.0.1/5d6b656f99486c310037fd00031b65410068c93f/chipspinner-0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

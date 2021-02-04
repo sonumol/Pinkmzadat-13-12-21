@@ -1,0 +1,5 @@
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64/CMakeFiles/edit_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64/CMakeFiles/rebuild_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64/cipher.out/CMakeFiles/edit_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64/cipher.out/CMakeFiles/rebuild_cache.dir
+/home/mba/AndroidStudioProjects/weblanza Mzadat/PM-Android Copy/MzadatBlack-20191104/MzadatBlack/app/.externalNativeBuild/cmake/release/x86_64/cipher.out/CMakeFiles/cipher-lib.dir
