@@ -77,7 +77,7 @@ class CompanyRegisterActPresenter(private val view: CompanyRegisterActContract.V
                     status -> {
                         view.showSuccess()
                     }
-                    status -> {
+                    !status -> {
                         view.showFailure()
                     }
 

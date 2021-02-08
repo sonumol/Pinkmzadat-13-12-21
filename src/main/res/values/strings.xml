@@ -219,7 +219,9 @@
     <string name="label_register_as_company">Please submit the following form to register your company for participating Auction</string>
     <string name="enter_company_name" >Enter Company Name</string>
     <string name="enter_company_registration" >Enter computer card number</string>
-    <string name="enter_auth_signee_qid">Enter Authorized Signee’s QID Number</string>
+
+
+    <string name="enter_auth_signee_qid">Enter Autherized Signee’s QID Number</string>
     <string name="select_file">Select File</string>
     <string name="attach_company_cr_copy">Attach Company CR copy</string>
     <string name="attach_autherised_signee_id">Attach Authorised Signee ID Copy</string>
@@ -228,5 +230,10 @@
     <string name="company_details_updated">Company details updated</string>
     <string name="company_details_update_failed">Company details update failed. try again</string>
     <string name="enter_valid_computer_card_number">Please enter valid computer card number</string>
-
+    <string name="computer_card_cpoy" >Computer Card Copy</string>
+    <string name="companyName">Company Name</string>
+    <string name="company_registration_number">Company  Registration Number</string>
+    <string name="autherised_signee_id_qidNum">Autherized Signee\'s QID Number</string>
+    <string name="authorized_signee_id_copy" >Authorized Signee ID Copy</string>
+    <string name="authorizationletter" >Authorisation Letter</string>
 </resources>

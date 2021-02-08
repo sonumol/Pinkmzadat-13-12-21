@@ -97,9 +97,9 @@ class DashboardFragment : MzFragment(), DashboardContract.View {
     override fun showDashboard(data: DashboardModel) {
         val versionCode = BuildConfig.VERSION_CODE
         val versionName = BuildConfig.VERSION_NAME
-//        if(!data.version_name!!.equals(versionName)){
-//            showAppUpdateDialog()
-//        }else{
+        if(!data.version_name!!.equals(versionCode.toString())){
+            showAppUpdateDialog()
+        }else{
             if(data.blocked!!){
                 activity!!.alert(Appcompat, resources.getString(R.string.account_blocked), getString(R.string.failed)) {
                     isCancelable = false
@@ -160,7 +160,7 @@ class DashboardFragment : MzFragment(), DashboardContract.View {
                 )
                 tvUploadQid?.text = data.qidMessage ?: getString(R.string.upload_qid_info_dashboard)
                 tvScroll?.requestFocus()
-           // }
+            }
         }
 
 

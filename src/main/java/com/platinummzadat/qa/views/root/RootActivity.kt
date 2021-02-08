@@ -278,7 +278,12 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
                 replaceFragment(FAQFragment(), R.id.container, true)
             }
             REGISTER_AS_COMPANY -> {
-                replaceFragment(CompanyRegisterFragment(), R.id.container, true)
+                if (-1 != currentUserId) {
+                    replaceFragment(CompanyRegisterFragment(), R.id.container, true)
+                } else {
+                    showLoginSnack()
+                }
+
             }
             RATE_APP -> {
                 startActivity(

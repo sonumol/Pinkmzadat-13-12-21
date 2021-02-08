@@ -93,7 +93,7 @@ class OtpPresenter(private val view: OtpContract.View) : OtpContract.Presenter {
                 !status ->{
                    if(OTP_TYPE_MORE == message) {
                         view.showTimeError()
-                    }
+                   }
                 }
 
                 OTP_TYPE_MORE_EXPIRE == message -> {

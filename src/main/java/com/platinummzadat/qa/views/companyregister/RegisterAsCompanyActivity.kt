@@ -172,7 +172,7 @@ class RegisterAsCompanyActivity : MzActivity(), CompanyRegisterActContract.View 
     }
 
     override fun showFailureComputerCard(data: ComputerCheckRes) {
-        toast(resources.getString(R.string.enter_valid_computer_card_number))
+        toast(data.message)
     }
 
 

@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rootRegister"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.companyregister.RegisterAsCompanyActivity">
 
@@ -36,9 +36,9 @@
         style="@style/LoginTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:paddingVertical="20dp"
+        android:paddingVertical="10dp"
         android:text="@string/register_as_company"
         android:textColor="@color/colorPrimary"
         android:textSize="21sp"
@@ -64,267 +64,468 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvSubtitile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:gravity="center"
-                android:text="@string/label_register_as_company"
-                android:textColor="@color/solid_black"
-                android:textSize="16sp">
-
-            </TextView>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout_companyName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="@string/enter_company_name">
-
-                <EditText
-                    android:id="@+id/et_cName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout_companyRg"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/enter_company_registration">
-
-                <EditText
-                    android:id="@+id/etCNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout_AuthQid"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/enter_auth_signee_qid">
-
-                <EditText
-                    android:id="@+id/etAuthQID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+       >
 
             <LinearLayout
+                android:id="@+id/containerCompany"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                android:visibility="gone"
+
+                android:orientation="vertical"
+       >
 
                 <TextView
+                    android:id="@+id/tvCompanyDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/attach_company_cr_copy">
+                    android:layout_marginVertical="8dp"
+                    android:gravity="center"
+                    android:text="@string/label_register_as_company"
+                    android:textColor="@color/solid_black"
+                    android:textSize="16sp">
+
 
                 </TextView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="1"
-
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnCompanyCR"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/select_file"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorPrimary">
-
-                    </com.google.android.material.button.MaterialButton>
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/companyCrTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text=""
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/companyName"
                         android:textSize="12sp">
 
                     </TextView>
 
+                    <TextView
+                        android:id="@+id/compantNameTv"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/solid_black"
+                        android:textSize="16sp">
+
+                    </TextView>
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivCompanyCr"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginVertical="6dp"
-
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_placeholder"
-                    android:visibility="gone" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/attach_autherised_signee_id">
-
-                </TextView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="1"
-
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/authSigneIdBtn"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/select_file"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorPrimary">
-
-                    </com.google.android.material.button.MaterialButton>
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/authSigneeIdTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text=""
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/company_registration_number"
                         android:textSize="12sp">
 
                     </TextView>
 
+                    <TextView
+                        android:id="@+id/companyRegNumTv"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/solid_black"
+                        android:textSize="17sp">
+
+                    </TextView>
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivSigneeID"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginVertical="6dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_placeholder"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/attach_auth_letter">
-
-                </TextView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="1"
-
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/authLtterBtn"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/select_file"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorPrimary">
-
-                    </com.google.android.material.button.MaterialButton>
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/authLettertv"
                         android:layout_width="match_parent"
-
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text=""
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/autherised_signee_id_qidNum"
                         android:textSize="12sp">
 
                     </TextView>
 
+                    <TextView
+                        android:id="@+id/auth_singeeQIDNumber"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/solid_black"
+                        android:textSize="16sp">
+
+                    </TextView>
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivAuthLetter"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginVertical="6dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_placeholder"
-                    android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/computer_card_cpoy"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/ivComputerCard"
+                        android:layout_width="220dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitCenter"
+                        android:textColor="@color/solid_black"
+                        android:textSize="16sp">
+
+                    </ImageView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/authorized_signee_id_copy"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/ivAuthIDCOpy"
+                        android:layout_width="220dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="100dp"
+                        android:scaleType="fitCenter"
+                        android:textColor="@color/solid_black"
+                        android:textSize="16sp">
+
+                    </ImageView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:paddingVertical="4dp"
+                        android:text="@string/authorizationletter"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/ivAuthLetterView"
+                        android:layout_width="220dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="100dp"
+                        android:scaleType="fitCenter"
+                        android:textColor="@color/solid_black"
+                        android:textSize="16sp">
+
+                    </ImageView>
+                </LinearLayout>
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSubmit"
+            <LinearLayout
+                android:id="@+id/containerMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:text="@string/submit"
-                android:textColor="#ffffff"
-                app:backgroundTint="@color/colorPrimary">
+                android:orientation="vertical">
 
-            </com.google.android.material.button.MaterialButton>
+                <TextView
+                    android:id="@+id/tvSubtitile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:gravity="center"
+                    android:text="@string/label_register_as_company"
+                    android:textColor="@color/solid_black"
+                    android:textSize="16sp">
+
+                </TextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_companyName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/enter_company_name">
+
+                    <EditText
+                        android:id="@+id/et_cName"
+                        android:inputType="textPostalAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_companyRg"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/enter_company_registration">
+
+                    <EditText
+                        android:id="@+id/etCNumber"
+                        android:maxLength="8"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_AuthQid"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/enter_auth_signee_qid">
+
+                    <EditText
+                        android:id="@+id/etAuthQID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/attach_company_cr_copy">
+
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCompanyCR"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_file"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary">
+
+                        </com.google.android.material.button.MaterialButton>
+
+                        <TextView
+                            android:id="@+id/companyCrTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivCompanyCr"
+                        android:layout_width="150dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginVertical="6dp"
+
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_placeholder"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/attach_autherised_signee_id">
+
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/authSigneIdBtn"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_file"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary">
+
+                        </com.google.android.material.button.MaterialButton>
+
+                        <TextView
+                            android:id="@+id/authSigneeIdTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivSigneeID"
+                        android:layout_width="150dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginVertical="6dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_placeholder"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/attach_auth_letter">
+
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/authLtterBtn"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_file"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary">
+
+                        </com.google.android.material.button.MaterialButton>
+
+                        <TextView
+                            android:id="@+id/authLettertv"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivAuthLetter"
+                        android:layout_width="150dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginVertical="6dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_placeholder"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/submit"
+                    android:textColor="#ffffff"
+                    app:backgroundTint="@color/colorPrimary">
+
+                </com.google.android.material.button.MaterialButton>
+            </LinearLayout>
         </LinearLayout>
 
 

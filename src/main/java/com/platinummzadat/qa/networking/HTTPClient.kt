@@ -31,7 +31,7 @@ object HTTPClient {
             .Builder()
             .readTimeout(120, TimeUnit.SECONDS)
             .connectTimeout(120, TimeUnit.SECONDS)
-            .addNetworkInterceptor(StethoInterceptor())
+           // .addNetworkInterceptor(StethoInterceptor())
            // .addInterceptor(HeaderInterceptor())
             .addInterceptor { chain ->
                 var request = chain.request()

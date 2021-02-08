@@ -65,15 +65,15 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
                 etAuthQID.error = resources.getString(R.string.enter_auth_signee_qid)
                 toast(resources.getString(R.string.enter_auth_signee_qid))
             }
-            authSigneeIdPath.isNullOrEmpty() -> {
-                toast(resources.getString(R.string.attach_autherised_signee_id))
-            }
-            authLetterPath.isNullOrEmpty() -> {
-                toast(resources.getString(R.string.attach_auth_letter))
-            }
-            companyCrPath.isNullOrEmpty() -> {
-                toast(resources.getString(R.string.attach_company_cr_copy))
-            }
+//            authSigneeIdPath.isNullOrEmpty() -> {
+//                toast(resources.getString(R.string.attach_autherised_signee_id))
+//            }
+//            authLetterPath.isNullOrEmpty() -> {
+//                toast(resources.getString(R.string.attach_auth_letter))
+//            }
+//            companyCrPath.isNullOrEmpty() -> {
+//                toast(resources.getString(R.string.attach_company_cr_copy))
+//            }
 
             else -> {
                 checkComputerCard()
@@ -114,21 +114,6 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
                 setNetworkImage(ivAuthLetter,company.authorizationCopyLink)
             }
             if(company.companyStatus==1){
-                etCNumber.isEnabled=false
-                et_cName.isEnabled=false
-                etAuthQID.isEnabled=false
-                companyCrTv.visibility=View.GONE
-                authLettertv.visibility=View.GONE
-                authSigneeIdTv.visibility=View.GONE
-//                text_input_layout_AuthQid.isEnabled=false
-//                text_input_layout_companyName.isEnabled=false
-//                text_input_layout_companyRg.isEnabled=false
-                btnCompanyCR.visibility=View.GONE
-                authSigneIdBtn.visibility=View.GONE
-                authLtterBtn.visibility=View.GONE
-                btnSubmit.visibility=View.GONE
-            }
-            if(company.companyStatus == 2){
                 etCNumber.isEnabled=true
                 et_cName.isEnabled=true
                 etAuthQID.isEnabled=true
@@ -139,11 +124,48 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
                 authSigneIdBtn.visibility=View.VISIBLE
                 authLtterBtn.visibility=View.VISIBLE
                 btnSubmit.visibility=View.VISIBLE
+
+
+            }
+            if(company.companyStatus == 2){
+                setDatasUI(company,data.message)
+                etCNumber.isEnabled=false
+                et_cName.isEnabled=false
+                etAuthQID.isEnabled=false
+                companyCrTv.visibility=View.GONE
+                authLettertv.visibility=View.GONE
+                authSigneeIdTv.visibility=View.GONE
+                text_input_layout_AuthQid.isEnabled=false
+                text_input_layout_companyName.isEnabled=false
+                text_input_layout_companyRg.isEnabled=false
+                btnCompanyCR.visibility=View.GONE
+                authSigneIdBtn.visibility=View.GONE
+                authLtterBtn.visibility=View.GONE
+                btnSubmit.visibility=View.GONE
             }
             tvSubtitile.text = data.message
+
         }
 
     }
+        fun setDatasUI(company: CompanyData, message: String) {
+            containerCompany.visibility = View.VISIBLE
+            containerMain.visibility = View.GONE
+            tvCompanyDetails.setText(message)
+
+            compantNameTv.setText(company.companyName)
+            companyRegNumTv.setText(company.crNo)
+            auth_singeeQIDNumber.setText(company.companySignId)
+            if(null!=company.crCopy){
+                setNetworkImage(ivComputerCard,company.crCopyLink)
+            }
+            if(null!=company.signIdCopy){
+                setNetworkImage(ivAuthIDCOpy,company.signIdCopyLink)
+            }
+            if(null!=company.authorizationCopy){
+                setNetworkImage(ivAuthLetterView,company.authorizationCopyLink)
+            }
+        }
 
     override fun showDataNoRegistration(data: CheckCompanyRegisterRes) {
         loading?.visibility = View.GONE
@@ -161,7 +183,7 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
     }
 
     override fun showFailureComputerCard(data: ComputerCheckRes) {
-        toast(resources.getString(R.string.enter_valid_computer_card_number))
+        toast(data.message)
     }
 
     override fun showFailure() {

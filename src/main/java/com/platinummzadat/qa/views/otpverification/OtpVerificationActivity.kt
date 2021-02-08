@@ -143,7 +143,6 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
     override fun showSuccessLoginWithCompany() {
         val intent = Intent(this@OtpVerificationActivity, RootActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra("type","company")
         startActivity(intent)
         this.finish()
     }
