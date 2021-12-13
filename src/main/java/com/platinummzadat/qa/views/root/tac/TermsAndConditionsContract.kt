@@ -8,7 +8,7 @@ interface TermsAndConditionsContract {
     interface View : BaseView<Presenter> {
         fun showTac(data: TacModel)
     }
-    interface Presenter : BasePresenter {
+    interface Presenter :BasePresenter {
         fun fetchTac()
     }
 }

@@ -3,11 +3,15 @@ package com.platinummzadat.qa.views.root.company
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.ImageQuality
@@ -15,13 +19,15 @@ import com.platinummzadat.qa.*
 import com.platinummzadat.qa.data.models.CheckCompanyRegisterRes
 import com.platinummzadat.qa.data.models.CompanyData
 import com.platinummzadat.qa.data.models.ComputerCheckRes
+import com.platinummzadat.qa.views.root.RootActivity
 import com.platinummzadat.qa.views.root.details.DetailsFragment
 import kotlinx.android.synthetic.main.activity_register_as_company.*
 import net.idik.lib.cipher.so.CipherClient
-
 import org.jetbrains.anko.support.v4.toast
 import raj.nishin.wolfpack.*
 import raj.nishin.wolfrequest.ERROR
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
@@ -30,6 +36,8 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
     private var authSigneeIdPath = ""
     private var companyCrPath = ""
     private var toPage=100;
+    private lateinit var yourBitmap: Bitmap
+    var outputStream: ByteArrayOutputStream?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.checkCompanyRegistartion()
@@ -174,8 +182,24 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
     }
 
     override fun showSuccess() {
-        toast(resources.getString(R.string.company_details_updated))
-        presenter.checkCompanyRegistartion()
+        //toast(resources.getString(R.string.company_details_updated))
+       // presenter.checkCompanyRegistartion()
+
+
+        // TODO Auto-generated method stub
+        val ald=AlertDialog.Builder(activity!!)
+        ald.setMessage(resources.getString(R.string.company_details_updated))
+            .setPositiveButton(resources.getString(R.string.ok)) { arg0, arg1 ->
+                val i = Intent(activity!!, RootActivity::class.java)
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(i)
+                activity!!.finish()
+            }
+
+
+        val al=ald.create()
+        al.show()
+
     }
 
     override fun showSuccessComputerCard(data: ComputerCheckRes) {
@@ -225,19 +249,56 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
                 setImageFromFilePath(ivSigneeID, authSigneeIdPath)
                 ivSigneeID.visibility(visible)
                 authSigneeIdTv.text = authSigneeIdPath.takeLast(20)
-                uploadPhoto(authSigneeIdPath, "upload_company_id")
+
+                val file = File(authSigneeIdPath);
+                val uri = Uri.fromFile(file);
+                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+                outputStream=ByteArrayOutputStream()
+                scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                val path=MediaStore.Images.Media.insertImage(
+                    context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+                )
+
+                uploadPhoto(path, "upload_company_id")
             } else if (requestCode == RC_PICK_AUTH_LETTER) {
                 authLetterPath = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)[0]
                 ivAuthLetter.visibility(visible)
                 setImageFromFilePath(ivAuthLetter, authLetterPath)
                 authLettertv.text = authLetterPath.takeLast(20)
-                uploadPhoto(authLetterPath, "upload_company_authorization")
+
+                val file = File(authLetterPath);
+                val uri = Uri.fromFile(file);
+                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+                outputStream=ByteArrayOutputStream()
+                scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                val path=MediaStore.Images.Media.insertImage(
+                    context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+                )
+
+                uploadPhoto(path, "upload_company_authorization")
             } else if (requestCode == RC_PICK_COMPANY_CR) {
                 companyCrPath = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)[0]
                 ivCompanyCr.visibility(visible)
                 setImageFromFilePath(ivCompanyCr, companyCrPath)
                 companyCrTv.text = companyCrPath.takeLast(20)
-                uploadPhoto(companyCrPath, "upload_company_cr")
+
+                val file = File(companyCrPath);
+                val uri = Uri.fromFile(file);
+                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+                outputStream=ByteArrayOutputStream()
+                scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                val path=MediaStore.Images.Media.insertImage(
+                    context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+                )
+
+
+                uploadPhoto(path, "upload_company_cr")
             }
         } else {
             authSigneeIdPath = ""
@@ -342,11 +403,11 @@ class CompanyRegisterFragment : MzFragment(), CompanyRegisterContract.View {
     ): View? {
         toPage = arguments?.getInt("toPage") ?: 100
         CompanyRegisterPresenter(this)
-        return super.onCreateView(com.platinummzadat.qa.R.layout.activity_register_as_company, inflater, container)
+        return super.onCreateView(R.layout.activity_register_as_company, inflater, container)
     }
 
     override fun onResume() {
         super.onResume()
-        fragmentListener?.setTitle(getString(com.platinummzadat.qa.R.string.REGISTER_AS_COMPANY))
+        fragmentListener?.setTitle(getString(R.string.REGISTER_AS_COMPANY))
     }
 }

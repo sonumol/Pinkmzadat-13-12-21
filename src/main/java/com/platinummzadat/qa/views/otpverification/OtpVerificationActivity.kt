@@ -1,16 +1,21 @@
 package com.platinummzadat.qa.views.otpverification
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.platinummzadat.qa.*
-import com.platinummzadat.qa.views.companyregister.RegisterAsCompanyActivity
 import com.platinummzadat.qa.views.registration.password.PasswordActivity
 import com.platinummzadat.qa.views.root.RootActivity
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+import com.platinummzadat.qa.views.companyregister.RegisterAsCompanyActivity
 import kotlinx.android.synthetic.main.activity_otp_verification.*
+import kotlinx.android.synthetic.main.content_login.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
 import org.jetbrains.anko.design.longSnackbar
@@ -18,12 +23,14 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 import raj.nishin.wolfpack.*
 import java.util.regex.Pattern
+import kotlin.system.exitProcess
 
 class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastReceiver.OTPReceiveListener {
     override lateinit var presenter: OtpContract.Presenter
-    val smsBroadcastListener = MySMSBroadcastReceiver()
+   // val smsBroadcastListener = MySMSBroadcastReceiver()
     private lateinit var progress: ProgressDialog
     var mobile=""
+    private var mTracker: Tracker?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp_verification)
@@ -56,6 +63,22 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
             verifyOtp()
         }
         startSmsListener()
+
+        val application=application as MApp
+        mTracker=application.getDefaultTracker()
+        mTracker!!.send(
+            HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build()
+        )
+//
+    }
+    override fun onResume() {
+        super.onResume()
+
+        mTracker!!.setScreenName("Image~" + "OtpVerificationActivity")
+        mTracker!!.send(HitBuilders.ScreenViewBuilder().build())
     }
 
     private fun verifyOtp() {
@@ -92,23 +115,27 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
     private fun startSmsListener() {
         val client = SmsRetriever.getClient(this)
         val task = client.startSmsRetriever()
-        task.addOnSuccessListener {
-            Log.e(this@OtpVerificationActivity::class.java.simpleName, "SmsRetrieverStarted")
-            smsBroadcastListener.initOTPListener(this)
-            registerReceiver(smsBroadcastListener, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
-        }
+//        task.addOnSuccessListener {
+//            Log.e(this@OtpVerificationActivity::class.java.simpleName, "SmsRetrieverStarted")
+//            smsBroadcastListener.initOTPListener(this)
+//            registerReceiver(smsBroadcastListener, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
+//        }
 
         task.addOnFailureListener {
             Log.e(this@OtpVerificationActivity::class.java.simpleName, "SmsRetriever-FAILED-TO-Start")
         }
     }
 
-    override fun showSuccessLogin() {
+    override fun showSuccessLogin( data :String) {
 
         val intent = Intent(this@OtpVerificationActivity, RootActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         this.finish()
+        Log.d("hah",data)
+
+
+
     }
 
     override fun showSuccessRegister() {
@@ -125,15 +152,15 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
     }
 
     override fun showCompanyCheck() {
-        val intent = Intent(this@OtpVerificationActivity, RootActivity::class.java)
+        val intent = Intent(this@OtpVerificationActivity, RegisterAsCompanyActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra("type","company")
+        intent.putExtra("toPath","company")
         startActivity(intent)
         this.finish()
     }
 
     override fun showRegisterAndCompanyCheck() {
-        val intent = Intent(this@OtpVerificationActivity, PasswordActivity::class.java)
+        val intent = Intent(this@OtpVerificationActivity, RegisterAsCompanyActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.putExtra("toPath","company")
         startActivity(intent)
@@ -204,7 +231,7 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
     }
 
     override fun onDestroy() {
-        unregisterReceiver(smsBroadcastListener)
+       // unregisterReceiver(smsBroadcastListener)
         super.onDestroy()
     }
 
@@ -215,6 +242,8 @@ class OtpVerificationActivity : MzActivity(), OtpContract.View, MySMSBroadcastRe
         } else {
             backPressTime = currentLocalTimeInMillis
             toast(getString(R.string.press_back_again_to_exit))
+            finishAffinity()
+            exitProcess(0)
         }
     }
 }

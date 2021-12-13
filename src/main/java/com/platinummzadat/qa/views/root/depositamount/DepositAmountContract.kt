@@ -3,7 +3,6 @@ package com.platinummzadat.qa.views.root.depositamount
 import com.platinummzadat.qa.BasePresenter
 import com.platinummzadat.qa.BaseView
 import com.platinummzadat.qa.data.models.AmountData
-import com.platinummzadat.qa.data.models.AmountModel
 import com.platinummzadat.qa.data.models.DepositModel
 import com.platinummzadat.qa.data.models.RefundRequestRes
 
@@ -15,9 +14,9 @@ interface DepositAmountContract {
     }
 
 
-    interface Presenter : BasePresenter {
+    interface Presenter :BasePresenter {
         fun fetchDepositAmount()
         fun getAmount()
-        fun getRefundRequest(imei:String)
+        fun getRefundRequest()
     }
 }

@@ -14,9 +14,9 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         view.presenter = this
     }
 
-    override fun authenticate(qatarId: String, phone: String, hash: String) {
+    override fun authenticate(qatarId: String, phone: String, crnumber:String, hash: String) {
         view.showLoading()
-        MzRepo.login(qatarId, phone, hash) { status, data, error ->
+        MzRepo.login(qatarId, phone,crnumber, hash) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
@@ -37,6 +37,19 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
                 }
                 error == ERROR.DUPLICATE_MOBILE -> {
                     view.showInvalidCredentials()
+//                    view.showBlockedUser(R.string.duplicate_mobile, phone)
+                }
+                error == ERROR.DUPLICATE_CR -> {
+                    view.showInvalidCredentials1()
+//                    view.showBlockedUser(R.string.duplicate_mobile, phone)
+                }
+                error == ERROR.NO_REGISTERD_PERSON -> {
+                    view.showInvalidCredentials2()
+//                    view.showBlockedUser(R.string.duplicate_mobile, phone)
+                }
+
+                error == ERROR.CR_MISMACH -> {
+                    view.showInvalidCredentials3()
 //                    view.showBlockedUser(R.string.duplicate_mobile, phone)
                 }
                 status -> {

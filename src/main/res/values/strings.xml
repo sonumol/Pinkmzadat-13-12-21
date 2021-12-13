@@ -130,7 +130,9 @@
     <string name="currency_format">QAR: %1$s</string>
     <string name="deposit_amount_required">Deposit Amount required: QAR. %1$s</string>
     <string name="greet_format">Hi, %1$s</string>
-    <string name="last_login_format">Last Login: %1$s</string>
+    <!--    <string name="last_login_format1">Last Login:</string>-->
+    <string name="lastara">Last Login </string>
+
     <string name="qatar_id_format">Qatar ID: %1$s</string>
     <string name="my_bids_format">%1$d\nMy Bids</string>
     <string name="winning_bids_format">%1$d\nWinning Bids</string>
@@ -175,11 +177,11 @@
     <string name="profile_photo_uploaded">Profile Photo Uploaded</string>
     <string name="profile_photo_upload_failed">Profile photo upload failed</string>
     <string name="authorisation_letter_upload_failed">Authorisation Letter upload failed</string>
-    <string name="authorisation_signee_id_copy_upload_failed">Authorised signee ID copy upload failed</string>
-    <string name="company_cr_upload_failed">Company CR copy upload failed</string>
+    <string name="authorisation_signee_id_copy_upload_failed">Authorised Bidder ID copy upload failed</string>
+    <string name="company_cr_upload_failed">Company CC copy upload failed</string>
     <string name="authorisation_letter_uploaded">Authorisation Letter uploaded</string>
-    <string name="authorisation_signee_id_copy_uploaded">Authorised signee ID copy uploaded</string>
-    <string name="company_cr_uploaded">Company CR copy uploaded</string>
+    <string name="authorisation_signee_id_copy_uploaded">Authorised Bidder ID copy uploaded</string>
+    <string name="company_cr_uploaded">Company CC copy uploaded</string>
     <string name="more"><![CDATA[more>>]]></string>
     <string name="filter">Filter:</string>
     <string name="filter_price">PRICE</string>
@@ -192,6 +194,9 @@
     <string name="make_payment">Make Payment</string>
     <string name="someone_placed_another_bid">Someone placed another bid with a higher amount. Please increment your bid amount.</string>
     <string name="email">Email</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="starton">Starts on</string>
+    <string name="expireson">Expires on</string>
     <string name="phone_number">Phone Number</string>
     <string name="office_address">Office Address</string>
     <string name="checking_bid_status">Checking bid status</string>
@@ -201,6 +206,7 @@
     <string name="accept_terms_and_conditions">Accept terms and conditions</string>
     <string name="accept">Accept</string>
     <string name="this_auction_is_expired">This auction is expired.</string>
+    <string name="enter_CR">Enter Your CC No.</string>
 
     <string name="price_from">Price From</string>
     <string name="enter_deposite_amount">Enter Deposit amount</string>
@@ -215,25 +221,34 @@
     <string name="update">Update App</string>
     <string name="personal">Personal</string>
     <string name="company">Company</string>
-    <string name="register_as_company">Register as Company</string>
+    <string name="register_as_company">Company Registration</string>
     <string name="label_register_as_company">Please submit the following form to register your company for participating Auction</string>
-    <string name="enter_company_name" >Enter Company Name</string>
-    <string name="enter_company_registration" >Enter computer card number</string>
+    <string name="enter_company_name">Enter Company Name</string>
+    <string name="enter_company_registration">Enter Computer Card Number</string>
 
 
-    <string name="enter_auth_signee_qid">Enter Autherized Signee’s QID Number</string>
+    <!--    <string name="enter_auth_signee_qid">Enter Autherized Signee’s QID Number</string>-->
+    <string name="enter_auth_signee_qid">Enter Authorised Bidder ID Number</string>
+
     <string name="select_file">Select File</string>
-    <string name="attach_company_cr_copy">Attach Company CR copy</string>
-    <string name="attach_autherised_signee_id">Attach Authorised Signee ID Copy</string>
+    <string name="attach_company_cr_copy">Attach Computer Card copy</string>
+    <string name="attach_autherised_signee_id">Attach Authorised Bidder ID Copy</string>
     <string name="attach_auth_letter">Attach Authorisation Letter</string>
-    <string name="REGISTER_AS_COMPANY">REGISTER AS COMPANY</string>
-    <string name="company_details_updated">Company details updated</string>
+    <string name="REGISTER_AS_COMPANY">Company Registration</string>
+    <string name="company_details_updated">Company Details Updated</string>
     <string name="company_details_update_failed">Company details update failed. try again</string>
     <string name="enter_valid_computer_card_number">Please enter valid computer card number</string>
-    <string name="computer_card_cpoy" >Computer Card Copy</string>
+    <string name="computer_card_cpoy">Computer Card Copy</string>
     <string name="companyName">Company Name</string>
-    <string name="company_registration_number">Company  Registration Number</string>
-    <string name="autherised_signee_id_qidNum">Autherized Signee\'s QID Number</string>
-    <string name="authorized_signee_id_copy" >Authorized Signee ID Copy</string>
-    <string name="authorizationletter" >Authorisation Letter</string>
+    <!--   // <string name="company_registration_number">Company  Registration Number</string>-->
+    <string name="autherised_signee_id_qidNum">Autherized Bidder ID Number</string>
+    <string name="authorized_signee_id_copy">Authorized Bidder ID Copy</string>
+    <string name="authorizationletter">Authorisation Letter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="invalid_credentials3">Another person has already registered with this CR number. Please try with new CR or contact admin at 40093636 </string>
+    <string name="approved_person_can_resister">Only approved personal user can register as company. Kindly register as a personal user and try again for company registration</string>
+    <string name="login_duplicate_mobile">For LOGIN: CC No. and Mobile Number should match.\n\nFor NEW REGISTRATION: CC No. and Mobile number should not be previously registered</string>
+    <string name="only_approved_person">Only approved personal user can register as company</string>
 </resources>

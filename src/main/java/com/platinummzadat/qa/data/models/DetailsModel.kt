@@ -1,7 +1,6 @@
 package com.platinummzadat.qa.data.models
 
 import com.google.gson.annotations.SerializedName
-import com.platinummzadat.qa.R
 import raj.nishin.wolfpack.getMillisFromDate
 import raj.nishin.wolfpack.getTimeFromMillis
 import java.io.Serializable

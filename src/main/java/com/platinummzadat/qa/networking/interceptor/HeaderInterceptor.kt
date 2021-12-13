@@ -2,7 +2,6 @@ package com.platinummzadat.qa.networking.interceptor
 
 
 
-import android.content.Context
 import java.io.IOException
 
 import okhttp3.Interceptor

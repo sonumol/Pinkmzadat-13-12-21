@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.platinummzadat.qa.R
 import com.platinummzadat.qa.data.models.FAQData
-import com.platinummzadat.qa.databinding.ItemCompanyFeesBinding
 import com.platinummzadat.qa.databinding.ItemFaqBinding
 import kotlinx.android.synthetic.main.item_faq.view.*
 

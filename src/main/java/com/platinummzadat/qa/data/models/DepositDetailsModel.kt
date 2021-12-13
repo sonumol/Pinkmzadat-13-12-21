@@ -10,6 +10,9 @@ import com.platinummzadat.qa.R
 data class DepositDetailsModel(
     @SerializedName("date") val date: String,
     @SerializedName("mode") val remarks: String,
+    @SerializedName("refund_button") val refund_button: String,
+    @SerializedName("deposit_id") val deposit_id: String,
+
     @SerializedName("amount") val amount: String,
     @SerializedName("payment_type") val paymentType: Int
 ) {

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-        <variable
-            name="item"
-            type="com.platinummzadat.qa.data.models.DashboardItemModel" />
-    </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical"
-        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="0dp"
-        app:strokeWidth="1dp">
+        android:background="@color/colorPrimary">
         <!--app:strokeColor="@color/colorDivider"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:id="@+id/clRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
             android:clickable="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               >
 
             <ImageView
                 android:id="@+id/ivItem"
@@ -40,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:imgUrl="@{item.imgUrl}" />
+                 />
 
             <TextView
                 android:id="@+id/tvName"
@@ -51,8 +51,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@{item.name}"
-                android:textColor="@color/solid_black"
+
+                android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -69,12 +69,13 @@
                 android:minWidth="36dp"
                 android:minHeight="36dp"
                 android:padding="8dp"
-                android:text="@{item.countString}"
                 android:textColor="#ffffff"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="@+id/ivItem"
                 app:layout_constraintTop_toTopOf="@+id/ivItem"
-                app:visibleOrGone="@{item.countVisible}" />
+              />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </layout>

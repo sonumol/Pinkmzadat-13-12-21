@@ -35,7 +35,7 @@ interface MzDataSource {
     )
 
     fun getRefundRequest(
-            imei: String,
+        depositid: String,
             result: (status: String, data: RefundRequestRes?, error: ERROR) -> Unit
     )
     fun fetchContactUs(
@@ -49,6 +49,7 @@ interface MzDataSource {
     fun splash(
         userId: Int,
         firebaseId: String,
+        type:Int,
         result: (status: Boolean, data: SplashModel?, error: ERROR) -> Unit
     )
 
@@ -75,7 +76,11 @@ interface MzDataSource {
         userId: Int,
         result: (status: Boolean, data: ArrayList<NotificationModel>, error: ERROR) -> Unit
     )
-
+//    fun category_list(
+//        firebaseId: String,
+//        type: Int,
+//        result: (status: Boolean, data: ArrayList<DashboardItemModel1>, error: ERROR) -> Unit
+//    )
     fun submitFeedback(
         userId: Int,
         auctionId: Int,
@@ -131,16 +136,19 @@ interface MzDataSource {
         userId: Int,
         auctionId: Int,
         amount: Double,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     )
 
     fun fetchDetails(
         userId: Int,
         auctionId: Int,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     )
 
     fun wishingBids(
+        wishlistid:String,
         userId: String,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     )
@@ -176,11 +184,13 @@ interface MzDataSource {
         filter: Int,
         offset: Int,
         limit: Int,
+        type: Int,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     )
 
     fun fetchDashboard(
         firebaseId: String,
+        type: Int,
         result: (status: Boolean, data: DashboardModel?, error: ERROR) -> Unit
     )
 
@@ -198,6 +208,7 @@ interface MzDataSource {
     fun login(
         qatarId: String,
         phone: String,
+        crnumber:String,
         hash: String,
         result: (status: Boolean, data: Int, error: ERROR) -> Unit
     )

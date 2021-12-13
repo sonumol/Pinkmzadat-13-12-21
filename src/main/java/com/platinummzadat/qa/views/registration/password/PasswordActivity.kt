@@ -6,20 +6,23 @@ import android.os.Bundle
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.views.companyregister.RegisterAsCompanyActivity
 import com.platinummzadat.qa.views.registration.profilephoto.ProfilePhotoRegistrationActivity
-import com.platinummzadat.qa.views.root.RootActivity
-import com.platinummzadat.qa.views.root.company.CompanyRegisterFragment
-import com.platinummzadat.qa.views.root.details.DetailsFragment
 import com.platinummzadat.qa.views.tosactivity.TermsOfServiceActivity
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
 import kotlinx.android.synthetic.main.activity_password.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import raj.nishin.wolfpack.*
+import kotlin.system.exitProcess
+
 
 class PasswordActivity : MzActivity(), PasswordContract.View {
     override lateinit var presenter: PasswordContract.Presenter
     private lateinit var progress: ProgressDialog
+    private val sharedPrefFile = "kotlinsharedpreference"
+    private var mTracker: Tracker?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
@@ -37,6 +40,23 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
             startActivity<TermsOfServiceActivity>()
         }
         progress = getProgressDialog()
+
+
+        val application=application as MApp
+        mTracker=application.getDefaultTracker()
+        mTracker!!.send(
+            HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build()
+        )
+//
+    }
+    override fun onResume() {
+        super.onResume()
+
+        mTracker!!.setScreenName("Image~" + "PasswordActivity")
+        mTracker!!.send(HitBuilders.ScreenViewBuilder().build())
     }
 
     private fun updatePassword() {
@@ -49,24 +69,24 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
                 etEmail.errorShake { }
                 etEmail.requestFocus()
             }
-            etPassword.value.isEmpty() -> {
-                etPassword.errorShake { }
-                etPassword.requestFocus()
-            }
-            etConfirmPassword.value.isEmpty() -> {
-                etConfirmPassword.errorShake { }
-                etConfirmPassword.requestFocus()
-            }
-            etPassword.value != etConfirmPassword.value -> {
-                toast(getString(R.string.passwords_do_not_match))
-                etPassword.requestFocus()
-                etPassword.errorWobble { }
-                etConfirmPassword.errorWobble { }
-                etPassword.text = null
-                etConfirmPassword.text = null
-            }
+//            etPassword.value.isEmpty() -> {
+//                etPassword.errorShake { }
+//                etPassword.requestFocus()
+//            }
+//            etConfirmPassword.value.isEmpty() -> {
+//                etConfirmPassword.errorShake { }
+//                etConfirmPassword.requestFocus()
+//            }
+//            etPassword.value != etConfirmPassword.value -> {
+//                toast(getString(R.string.passwords_do_not_match))
+//                etPassword.requestFocus()
+//                etPassword.errorWobble { }
+//                etConfirmPassword.errorWobble { }
+//                etPassword.text = null
+//                etConfirmPassword.text = null
+//            }
             else -> {
-                presenter.updateProfile(etName.value, etEmail.value, etPassword.value)
+                presenter.updateProfile(etName.value, etEmail.value, "1234")
             }
         }
     }
@@ -86,6 +106,7 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
                 }
 
             }
+
         }
         if(tempflap){
             val i = Intent(this@PasswordActivity, ProfilePhotoRegistrationActivity::class.java)
@@ -94,7 +115,24 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
             finish()
         }
 
-
+//        val sharedPreferences: SharedPreferences= this.getSharedPreferences(sharedPrefFile,
+//            Context.MODE_PRIVATE)
+//        val sharedIdValue = sharedPreferences.getString("id_key",null)
+//        Toast.makeText(baseContext, sharedIdValue, Toast.LENGTH_SHORT).show()
+//        if(sharedIdValue=="Personal" || sharedIdValue=="شخصي")
+//        {
+//            val i = Intent(this@PasswordActivity, ProfilePhotoRegistrationActivity::class.java)
+//            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            startActivity(i)
+//            finish()
+//        }
+//        else
+//        {
+//            val i = Intent(this@PasswordActivity, RegisterAsCompanyActivity::class.java)
+//                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                        startActivity(i)
+//                        finish()
+//        }
 
     }
 
@@ -110,14 +148,14 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
 
     override fun showLoading() {
         progress.show()
-        etPassword.lock()
+       // etPassword.lock()
         etConfirmPassword.lock()
         clConfirm.lock()
     }
 
     override fun hideLoading() {
         progress.hide()
-        etPassword.unlock()
+        //etPassword.unlock()
         etConfirmPassword.unlock()
         clConfirm.unlock()
     }
@@ -138,6 +176,8 @@ class PasswordActivity : MzActivity(), PasswordContract.View {
         } else {
             backPressTime = currentLocalTimeInMillis
             toast(getString(R.string.press_back_again_to_exit))
+            finishAffinity()
+            exitProcess(0)
         }
     }
 

@@ -26,9 +26,9 @@ class DetailsPresenter(private val view: DetailsContract.View) : DetailsContract
         }
     }
 
-    override fun refreshAuction(itemId: Int) {
+    override fun refreshAuction(itemId: Int,type: Int) {
         view.refreshing()
-        MApp.MzRepo.fetchDetails(currentUserId, itemId) { status, data, error ->
+        MApp.MzRepo.fetchDetails(currentUserId, itemId,type) { status, data, error ->
             when {
                 null == data -> {
                     view.refreshFailed()
@@ -67,8 +67,8 @@ class DetailsPresenter(private val view: DetailsContract.View) : DetailsContract
         }
     }
 
-    override fun placeBid(auctionId: Int, amount: Double) {
-        MApp.MzRepo.placeBid(currentUserId, auctionId, amount) { status, data, error ->
+    override fun placeBid(auctionId: Int, amount: Double,type: Int) {
+        MApp.MzRepo.placeBid(currentUserId, auctionId, amount,type) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
@@ -94,9 +94,9 @@ class DetailsPresenter(private val view: DetailsContract.View) : DetailsContract
         }
     }
 
-    override fun fetchData(itemId: Int) {
+    override fun fetchData(itemId: Int,type: Int) {
         view.showLoading()
-        MApp.MzRepo.fetchDetails(currentUserId, itemId) { status, data, error ->
+        MApp.MzRepo.fetchDetails(currentUserId, itemId,type) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {

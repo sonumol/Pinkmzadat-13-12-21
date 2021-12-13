@@ -2,17 +2,19 @@ package com.platinummzadat.qa.views.root.details
 
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import com.fxn.stash.Stash
 import com.platinummzadat.qa.*
@@ -48,13 +50,31 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
     lateinit var followAuctionList:Any
     private var itemId = -1
     private var bidAmount: Double = (-1).toDouble()
+    private var type = 0
+    private val sharedPrefFile = "kotlinsharedpreference"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.fetchData(itemId)
+
+        val sharedPreferences: SharedPreferences= context!!.getSharedPreferences(sharedPrefFile,
+            Context.MODE_PRIVATE)
+        val sharedNameValue = sharedPreferences.getString("id_key","")
+        if(sharedNameValue=="Personal" || sharedNameValue=="شخصي") {
+
+            type=1
+//            Toast.makeText(MApp.applicationContext(),""+ type ,Toast.LENGTH_LONG).show()
+
+        }
+        else{
+            type=2
+//            Toast.makeText(MApp.applicationContext(),""+ type ,Toast.LENGTH_LONG).show()
+
+        }
+        presenter.fetchData(itemId,type)
     }
 
     private var feedback = ""
     override fun showData(data: DetailsModel) {
+       // Toast.makeText(MApp.applicationContext(),""+data,Toast.LENGTH_LONG).show()
 
         if(data.user_blocked!=null){
             if(data.user_blocked!!){
@@ -164,7 +184,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
 
                     } else {
                         fragmentListener?.onErrorWithAutoHideMessage(
-                                getString(com.platinummzadat.qa.R.string.please_login_to_continue),
+                                getString(R.string.please_login_to_continue),
                                 getString(com.platinummzadat.qa.R.string.login)
                         ) {
                             with(activity!!) {
@@ -191,7 +211,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
                                     progress.dismiss()
                                     if (auctionItem.price + auctionItem.increment <= userBidAmount) {
                                         bidAmount = userBidAmount
-                                        presenter.placeBid(itemId, bidAmount)
+                                        presenter.placeBid(itemId, bidAmount,type)
                                     } else {
                                         activity?.alert(
                                                 Appcompat,
@@ -209,7 +229,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
                             activity?.alert(
                                     Appcompat,
                                     auctionItem.bidStatus.reason,
-                                    getString(com.platinummzadat.qa.R.string.can_not_place_bid)
+                                    getString(R.string.can_not_place_bid)
                             ) {
                                 positiveButton(getString(R.string.add_deposit_amount)) { fragmentListener?.onSelectDepositAmount(DepositAmountFragment()) }
                                 negativeButton(getString(R.string.ok)) {it.dismiss()}
@@ -217,8 +237,8 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
                         }
                     } else {
                         fragmentListener?.onErrorWithAutoHideMessage(
-                                getString(com.platinummzadat.qa.R.string.please_login_to_continue),
-                                getString(com.platinummzadat.qa.R.string.login)
+                                getString(R.string.please_login_to_continue),
+                                getString(R.string.login)
                         ) {
                             with(activity!!) {
                                 startActivity<LoginActivity>()
@@ -247,16 +267,32 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
                 }
 
                 llFeedback?.onClick {
-                    activity?.feedbackAlert {
-                        feedback = it
-                        toast(getString(R.string.submitting_feedback))
-                        presenter.submitFeedback(itemId, feedback)
+                    if (-1 != currentUserId) {
+                        activity?.feedbackAlert {
+                            feedback = it
+                            toast(getString(R.string.submitting_feedback))
+                            presenter.submitFeedback(itemId, feedback)
+
+                        }
                     }
+                    else {
+                        fragmentListener?.onErrorWithAutoHideMessage(
+                            getString(R.string.please_login_to_continue),
+                            getString(R.string.login)
+                        ) {
+                            with(activity!!) {
+                                startActivity<LoginActivity>()
+                                finish()
+                            }
+
+                        }
+                    }
+
                 }
                 llTerms?.onClick {
                     if (data.terms.isNotEmpty()) {
                         activity?.alert(Appcompat, data.terms, getString(com.platinummzadat.qa.R.string.terms_and_conditions)) {
-                            positiveButton(getString(com.platinummzadat.qa.R.string.ok)) { it.dismiss() }
+                            positiveButton(getString(R.string.ok)) { it.dismiss() }
                         }?.show()
                     } else {
                         toast(getString(R.string.no_data_available))
@@ -363,7 +399,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
     }
     private fun showDescription(description: String) {
         activity?.alert(Appcompat, description) {
-            positiveButton(getString(com.platinummzadat.qa.R.string.close)) { it.dismiss() }
+            positiveButton(getString(R.string.close)) { it.dismiss() }
         }?.show()
     }
 
@@ -400,8 +436,8 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
 
     override fun showBidPlaced(data: DetailsModel) {
        // showData(data)
-        presenter.fetchData(itemId)
-        toast(getString(com.platinummzadat.qa.R.string.bid_placed))
+        presenter.fetchData(itemId,type)
+        toast(getString(R.string.bid_placed))
     }
 
     override fun showErrorAddingToWishList() {
@@ -412,7 +448,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
 
     override fun showErrorPlacingBid() {
         fragmentListener?.onError {
-            presenter.placeBid(itemId, bidAmount)
+            presenter.placeBid(itemId, bidAmount,type)
         }
     }
 
@@ -440,9 +476,9 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
             savedInstanceState: Bundle?
     ): View? {
         itemId = arguments?.getInt(ARG_AUCTION_ITEM_ID) ?: -1
-        fragmentListener?.setTitle(getString(com.platinummzadat.qa.R.string.app_name))
+        fragmentListener?.setTitle(getString(R.string.app_name))
         DetailsPresenter(this)
-        return super.onCreateView(com.platinummzadat.qa.R.layout.fragment_details, inflater, container)
+        return super.onCreateView(R.layout.fragment_details, inflater, container)
     }
 
     companion object {
@@ -474,7 +510,7 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
     private val refresh: Runnable = object : Runnable {
         override fun run() {
             if (!isRefreshing && isActive) {
-                presenter.refreshAuction(itemId)
+                presenter.refreshAuction(itemId,type)
                 refreshHandler.postDelayed(this, REFRESH_DELAY)
             }
         }
@@ -486,7 +522,8 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
             fragmentListener?.setTitle(auctionItem.referenceNumber)
             if (auctionItem.auction_status==1) {
                 timer?.cancel()
-                timer = object : CountDownTimer(auctionItem.millisUntilExpiry, 1000L) {
+                tvTimeLeft1.setText(resources!!.getString(R.string.expireson))
+                timer = object : CountDownTimer(auctionItem.millisUntilExpiry, 1050L) {
                     override fun onFinish() {
                         tvTimeLeft?.text = resources.getString(R.string.expired)
                         btnBidNow.text =resources!!.getString(R.string.expired)
@@ -504,12 +541,13 @@ class DetailsFragment : MzFragment(), DetailsContract.View {
                 timer?.cancel()
                 btnBidNow.isEnabled=false
                 btnBidNow.isClickable=false
+                tvTimeLeft1.setText(resources!!.getString(R.string.starton))
                 timer = object : CountDownTimer(auctionItem.upComimgBidTimer, 1000L) {
                     override fun onFinish() {
                         timer?.cancel()
                         btnBidNow.isEnabled=true
                         btnBidNow.isClickable=true
-                        timer = object : CountDownTimer(auctionItem.millisUntilExpiry, 1000L) {
+                        timer = object : CountDownTimer(auctionItem.millisUntilExpiry, 1050L) {
                             override fun onFinish() {
                                 tvTimeLeft?.text = resources.getString(R.string.expired)
                                 btnBidNow.text =resources!!.getString(R.string.expired)

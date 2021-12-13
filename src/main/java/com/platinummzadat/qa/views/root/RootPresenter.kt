@@ -2,6 +2,8 @@ package com.platinummzadat.qa.views.root
 
 import com.platinummzadat.qa.MApp.Companion.MzRepo
 import com.platinummzadat.qa.currentUserId
+import com.platinummzadat.qa.firebaseId
+import raj.nishin.wolfrequest.ERROR
 
 /**
  * Created by WOLF
@@ -17,6 +19,29 @@ class RootPresenter(private val view: RootContract.View) : RootContract.Presente
         MzRepo.updateLastActive(currentUserId){status, error ->
             view.hideLoading()
             view.lastActiveUpdated()
+        }
+    }
+    override fun fetchDashboard() {
+         //view.showLoading()
+        MzRepo.fetchDashboard(firebaseId,1) { status, data, error ->
+          //   view.hideLoading()
+            when {
+                error == ERROR.API_ERROR -> {
+                    view.showApiError()
+                }
+                error == ERROR.NO_INTERNET -> {
+                    view.showNoInternet()
+                }
+                null == data -> {
+                    view.showEmptyData()
+                }
+                status -> {
+                    view.showDashboard(data)
+                }
+                else -> {
+                    view.showApiError()
+                }
+            }
         }
     }
 }

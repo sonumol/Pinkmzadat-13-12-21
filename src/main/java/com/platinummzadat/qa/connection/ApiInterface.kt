@@ -1,7 +1,5 @@
 package com.platinummzadat.qa.connection
 import com.platinummzadat.qa.data.models.AmountModel
-import okhttp3.MultipartBody
-import org.json.JSONObject
 
 import retrofit2.Call
 import retrofit2.http.*

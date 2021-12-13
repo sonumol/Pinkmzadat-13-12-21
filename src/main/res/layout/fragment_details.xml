@@ -50,7 +50,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="14dp"
                     android:layout_marginLeft="24dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
@@ -79,14 +79,28 @@
                             android:layout_height="16dp"
                             android:layout_gravity="center"
                             app:srcCompat="@drawable/ic_item_view_sand_clock" />
-
-                        <TextView
-                            android:id="@+id/tvTimeLeft"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTimeLeft1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:textSize="14sp" />
+                        <TextView
+                            android:layout_marginLeft="8dp"
+
+                            android:id="@+id/tvTimeLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -446,6 +460,7 @@
                                   android:layout_height="24dp"
                                   android:layout_gravity="center"
                                   android:scaleType="fitCenter"
+                                  android:tint="@color/colorYellowLight"
                                   app:srcCompat="@drawable/ic_item_view_inspection_report" />
 
                               <TextView
@@ -483,6 +498,7 @@
                                   android:layout_width="24dp"
                                   android:layout_height="24dp"
                                   android:layout_gravity="center"
+                                  android:tint="@color/colorYellowLight"
                                   android:scaleType="fitCenter"
                                   app:srcCompat="@drawable/ic_item_view_location_map" />
 
@@ -522,6 +538,7 @@
                                   android:layout_height="24dp"
                                   android:layout_gravity="center"
                                   android:padding="2dp"
+                                  android:tint="@color/colorYellowLight"
                                   android:scaleType="fitCenter"
                                   app:srcCompat="@drawable/ic_item_view_specification" />
 
@@ -567,6 +584,7 @@
                                   android:layout_width="24dp"
                                   android:layout_height="24dp"
                                   android:layout_gravity="center"
+                                  android:tint="@color/colorYellowLight"
                                   android:scaleType="fitCenter"
                                   app:srcCompat="@drawable/ic_item_view_tac" />
 
@@ -574,6 +592,7 @@
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:layout_gravity="center"
+
                                   android:layout_marginTop="8dp"
                                   android:gravity="center"
                                   android:text="@string/terms_and_conditions"
@@ -602,6 +621,7 @@
 
                               <ImageView
                                   android:layout_width="24dp"
+                                  android:tint="@color/colorYellowLight"
                                   android:layout_height="24dp"
                                   android:layout_gravity="center"
                                   android:scaleType="fitCenter"
@@ -639,6 +659,7 @@
                               <ImageView
                                   android:layout_width="24dp"
                                   android:layout_height="24dp"
+                                  android:tint="@color/colorYellowLight"
                                   android:layout_gravity="center"
                                   android:scaleType="fitCenter"
                                   app:srcCompat="@drawable/ic_item_view_share_bid" />

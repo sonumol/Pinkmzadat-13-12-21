@@ -29,4 +29,5 @@
     <color name="colorDepositAmountBlack">#222222</color>
     <color name="colorDepositAmountRed">#E02323</color>
     <color name="colorPrimaryLight">#85CF3273</color>
+    <color name="colorWhite">#000000</color>
 </resources>

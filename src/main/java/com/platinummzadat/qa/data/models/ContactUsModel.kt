@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName
 data class ContactUsModel(
     @SerializedName("address") val address: String,
     @SerializedName("telephone") val telephone: String,
+    @SerializedName("call") val call: String,
+    @SerializedName("whatsapp") val whatsapp: String,
     @SerializedName("fax") val fax: String,
     @SerializedName("email") val email: String
 ) {

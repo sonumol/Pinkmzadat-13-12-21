@@ -5,10 +5,17 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
     <application
-        android:name=".MApp"
+
+        android:name="com.platinummzadat.qa.MApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,23 +25,24 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
+        <activity android:name="com.platinummzadat.qa.MainActivity" />
+        <activity android:name="com.platinummzadat.qa.AnalyticsApplication" />
         <activity
-            android:name=".views.companyregister.RegisterAsCompanyActivity"
+            android:name="com.platinummzadat.qa.views.companyregister.RegisterAsCompanyActivity"
             android:label="@string/REGISTER_AS_COMPANY"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.registration.profilephoto.ProceedMessage"
+            android:name="com.platinummzadat.qa.views.registration.profilephoto.ProceedMessage"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.tosactivity.TermsOfServiceActivity"
+            android:name="com.platinummzadat.qa.views.tosactivity.TermsOfServiceActivity"
             android:label="@string/title_activity_terms_of_service"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.deeplink.DeepLinkActivity"
+            android:name="com.platinummzadat.qa.views.deeplink.DeepLinkActivity"
             android:label="@string/title_activity_deep_link">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
@@ -49,13 +57,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.root.profile.deposit.PaymentActivity"
+            android:name="com.platinummzadat.qa.views.root.profile.deposit.PaymentActivity"
             android:label="@string/title_activity_payment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".firebase.MzadatNotificationService"
+            android:name="com.platinummzadat.qa.firebase.MzadatNotificationService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -76,7 +84,7 @@
         </provider>
         -->
         <receiver
-            android:name=".views.otpverification.MySMSBroadcastReceiver"
+            android:name="com.platinummzadat.qa.views.otpverification.MySMSBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
@@ -84,22 +92,22 @@
         </receiver>
 
         <activity
-            android:name=".views.root.search.SearchActivity"
+            android:name="com.platinummzadat.qa.views.root.search.SearchActivity"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.root.details.slider.SliderActivity"
+            android:name="com.platinummzadat.qa.views.root.details.slider.SliderActivity"
             android:label="@string/title_activity_slider"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Black" />
         <activity
-            android:name=".views.registration.profilephoto.ProfilePhotoRegistrationActivity"
+            android:name="com.platinummzadat.qa.views.registration.profilephoto.ProfilePhotoRegistrationActivity"
             android:label="@string/title_activity_profile_photo_registration"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.registration.password.PasswordActivity"
+            android:name="com.platinummzadat.qa.views.registration.password.PasswordActivity"
             android:label="@string/title_activity_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -113,12 +121,12 @@
             -->
         </activity>
         <activity
-            android:name=".views.otpverification.OtpVerificationActivity"
+            android:name="com.platinummzadat.qa.views.otpverification.OtpVerificationActivity"
             android:label="@string/title_activity_otp_verification"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.root.RootActivity"
+            android:name="com.platinummzadat.qa.views.root.RootActivity"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -129,12 +137,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.login.LoginActivity"
+            android:name="com.platinummzadat.qa.views.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.splash.SplashActivity"
+            android:name="com.platinummzadat.qa.views.splash.SplashActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -150,7 +158,7 @@
             android:required="false" />
 
         <activity
-            android:name=".views.welcome.WelcomeActivity"
+            android:name="com.platinummzadat.qa.views.welcome.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

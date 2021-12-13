@@ -16,10 +16,10 @@ class DashboardPresenter(private val view: DashboardContract.View) :
         view.presenter = this
     }
 
-    override fun fetchDashboard() {
-        view.showLoading()
-        MzRepo.fetchDashboard(firebaseId) { status, data, error ->
-            view.hideLoading()
+    override fun fetchDashboard(type: Int) {
+       // view.showLoading()
+        MzRepo.fetchDashboard(firebaseId,type) { status, data, error ->
+          //  view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
                     view.showApiError()
@@ -63,4 +63,36 @@ class DashboardPresenter(private val view: DashboardContract.View) :
             }
         }
     }
+
+    override fun updateLastActive() {
+        view.showLoading()
+        MzRepo.updateLastActive(currentUserId){status, error ->
+            view.hideLoading()
+            view.lastActiveUpdated()
+        }
+    }
+//    override fun category_list(type: Int) {
+//        view.showLoading()
+//        MzRepo.category_list(firebaseId,type){ status, data, error ->
+//            view.hideLoading()
+//            when {
+//                error == ERROR.API_ERROR -> {
+//                    view.showApiError()
+//                }
+//                error == ERROR.NO_INTERNET -> {
+//                    view.showNoInternet()
+//                }
+//                data.isEmpty() -> {
+//                    view.showEmptyData()
+//                }
+//                status -> {
+//                    view.showData(data)
+//                }
+//                else -> {
+//                    view.showApiError()
+//                }
+//            }
+//        }
+//    }
+
 }

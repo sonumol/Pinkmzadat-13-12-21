@@ -11,6 +11,8 @@ import java.text.NumberFormat
  */
 data class AuctionItemModel(
     @SerializedName("id") val id: Int,
+    @SerializedName("listing_count") val listing_count: Int,
+
     @SerializedName("title") val name: String,
     @SerializedName("image") val imgUrl: String,
     @SerializedName("closing_date") val endDate: String,

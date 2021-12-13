@@ -12,7 +12,7 @@ import raj.nishin.wolfrequest.ERROR
 class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
     override fun fetchCompanyFees(
         userId: Int,
-        result: (status: Boolean,data: CompanyFeesRespose, error: ERROR) -> Unit
+        result: (status: Boolean, data: CompanyFeesRespose, error: ERROR) -> Unit
     ) {
         remote.fetchCompanyFees(userId, result)
     }
@@ -33,8 +33,8 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
         remote.checkComputerCard(cr_no, result)
     }
 
-    override fun getRefundRequest(imei: String, result: (status: String, data: RefundRequestRes?, error: ERROR) -> Unit) {
-        remote.getRefundRequest(imei, result)
+    override fun getRefundRequest(depositid: String, result: (status: String, data: RefundRequestRes?, error: ERROR) -> Unit) {
+        remote.getRefundRequest(depositid, result)
     }
 
 
@@ -49,9 +49,10 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
     override fun splash(
         userId: Int,
         firebaseId: String,
+        type:Int,
         result: (status: Boolean, data: SplashModel?, error: ERROR) -> Unit
     ) {
-        remote.splash(userId, firebaseId, result)
+        remote.splash(userId, firebaseId,type, result)
     }
 
     override fun FAQ(result: (status: Boolean, data: FaqRes?, error: ERROR) -> Unit) {
@@ -83,7 +84,13 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
     ) {
         remote.fetchNotifications(userId, result)
     }
-
+//    override fun category_list(
+//        firebaseId: String,
+//        type: Int,
+//        result: (status: Boolean, data: ArrayList<DashboardItemModel1>, error: ERROR) -> Unit
+//    ) {
+//        remote.category_list(firebaseId,type, result)
+//    }
     override fun submitFeedback(
         userId: Int,
         auctionId: Int,
@@ -153,16 +160,18 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
         userId: Int,
         auctionId: Int,
         amount: Double,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     ) {
-        remote.placeBid(userId, auctionId, amount, result)
+        remote.placeBid(userId, auctionId, amount,type, result)
     }
 
     override fun wishingBids(
+        wishlistid:String,
         userId: String,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     ) {
-        remote.wishingBids(userId, result)
+        remote.wishingBids(wishlistid,userId, result)
     }
     override fun winningBids(
             userId: Int,
@@ -212,9 +221,10 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
     override fun fetchDetails(
         userId: Int,
         auctionId: Int,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     ) {
-        remote.fetchDetails(userId, auctionId, result)
+        remote.fetchDetails(userId, auctionId, type,result)
     }
 
     override fun fetchAuctions(
@@ -223,16 +233,18 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
         filter: Int,
         offset: Int,
         limit: Int,
+        type: Int,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     ) {
-        remote.fetchAuctions(userId, categoryId, filter, offset, limit, result)
+        remote.fetchAuctions(userId, categoryId, filter, offset, limit,type, result)
     }
 
     override fun fetchDashboard(
         firebaseId: String,
+        type: Int,
         result: (status: Boolean, data: DashboardModel?, error: ERROR) -> Unit
     ) {
-        remote.fetchDashboard(firebaseId, result)
+        remote.fetchDashboard(firebaseId,type, result)
     }
 
 
@@ -247,10 +259,12 @@ class MzadatRepository(private val remote: MzDataSource) : MzDataSource {
     override fun login(
         qatarId: String,
         phone: String,
+        crnumber:String,
         hash: String,
+
         result: (status: Boolean, data: Int, error: ERROR) -> Unit
     ) {
-        remote.login(qatarId, phone, hash, result)
+        remote.login(qatarId, phone,crnumber ,hash, result)
 
     }
 

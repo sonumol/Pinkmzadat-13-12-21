@@ -4,7 +4,6 @@ import com.platinummzadat.qa.BasePresenter
 import com.platinummzadat.qa.BaseView
 import com.platinummzadat.qa.data.models.CheckCompanyRegisterRes
 import com.platinummzadat.qa.data.models.ComputerCheckRes
-import com.platinummzadat.qa.data.models.FaqRes
 
 interface CompanyRegisterActContract {
     interface View : BaseView<Presenter> {

@@ -1,9 +1,6 @@
 package com.platinummzadat.qa.views.companyregister
 
 import com.platinummzadat.qa.MApp.Companion.MzRepo
-import com.platinummzadat.qa.R
-import com.platinummzadat.qa.data.models.CheckCompanyRegisterRes
-import com.platinummzadat.qa.tempUserId
 import raj.nishin.wolfrequest.ERROR
 
 /**

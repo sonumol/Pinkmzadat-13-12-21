@@ -14,8 +14,8 @@ class AuctionsPresenter(private val view: AuctionsContract.View) : AuctionsContr
         view.presenter = this
     }
 
-    override fun placeBid(auctionId: Int, amount: Double) {
-        MApp.MzRepo.placeBid(currentUserId, auctionId, amount) { status, data, error ->
+    override fun placeBid(auctionId: Int, amount: Double,type: Int) {
+        MApp.MzRepo.placeBid(currentUserId, auctionId, amount,type) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
@@ -37,9 +37,9 @@ class AuctionsPresenter(private val view: AuctionsContract.View) : AuctionsContr
         }
     }
 
-    override fun fetchWishingBids(requestTime: Long, refresh: Boolean,appHash:String) {
+    override fun fetchWishingBids( wishlistid:String,requestTime: Long, refresh: Boolean,appHash:String) {
         view.showLoading()
-        MzRepo.wishingBids(appHash) { status, data, error ->
+        MzRepo.wishingBids(wishlistid,appHash) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
@@ -155,10 +155,11 @@ class AuctionsPresenter(private val view: AuctionsContract.View) : AuctionsContr
         offset: Int,
         limit: Int,
         requestTime: Long,
+        type: Int,
         refresh: Boolean
     ) {
         view.showLoading()
-        MzRepo.fetchAuctions(currentUserId, categoryId, filter, offset, limit) { status, data, error ->
+        MzRepo.fetchAuctions(currentUserId, categoryId, filter, offset, limit,type) { status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {

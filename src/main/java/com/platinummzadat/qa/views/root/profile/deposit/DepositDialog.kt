@@ -8,14 +8,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.Window
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import com.platinummzadat.qa.R
-import com.platinummzadat.qa.RC_PAYMENT
 import com.platinummzadat.qa.errorShake
 import kotlinx.android.synthetic.main.deposit_alert_dialog.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.support.v4.startActivityForResult
 import raj.nishin.wolfpack.value
 
 /**
@@ -25,14 +21,14 @@ import raj.nishin.wolfpack.value
 class DepositDialog : Dialog {
     private var result: ((amount: String) -> Unit)? = null
 
-    constructor(result: (amount: String) -> Unit, context: Context?) : super(context) {
+    constructor(result: (amount: String) -> Unit, context: Context?) : super(context!!) {
         this.result = result
     }
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, themeResId: Int) : super(context, themeResId)
+    constructor(context: Context?) : super(context!!)
+    constructor(context: Context?, themeResId: Int) : super(context!!, themeResId)
     constructor(context: Context?, cancelable: Boolean, cancelListener: DialogInterface.OnCancelListener?) : super(
-        context,
+        context!!,
         cancelable,
         cancelListener
     )

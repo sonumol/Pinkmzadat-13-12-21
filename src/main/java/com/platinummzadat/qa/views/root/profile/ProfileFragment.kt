@@ -2,11 +2,16 @@ package com.platinummzadat.qa.views.root.profile
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,14 +30,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.data.models.AmountData
 import com.platinummzadat.qa.data.models.ProfileModel
+import com.platinummzadat.qa.networking.DatabaseHelper
+import com.platinummzadat.qa.networking.interceptor.DatabaseHelper1
 import com.platinummzadat.qa.views.root.drawer.MzNav
 import com.platinummzadat.qa.views.root.profile.deposit.FAILED
 import com.platinummzadat.qa.views.root.profile.deposit.PaymentActivity
 import com.platinummzadat.qa.views.root.profile.deposit.SUCCESS
 import kotlinx.android.synthetic.main.custome_dialog_amout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import net.idik.lib.cipher.so.CipherClient
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
@@ -42,6 +47,7 @@ import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
 import raj.nishin.wolfpack.*
 import raj.nishin.wolfrequest.ERROR
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.NumberFormat
 
@@ -51,6 +57,7 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
     private var qidPath1 = ""
     private var qidPath2 = ""
     private var profilePath = ""
+    private var user_id = ""
     private lateinit var progress: ProgressDialog
     private val CHOOSER_PERMISSIONS_REQUEST_CODE = 7459
     companion object {
@@ -59,15 +66,24 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
 
         private const val ALARMS_EXTERNAL_STORAGE_FOLDER = "mzadat"
     }
+    private lateinit var yourBitmap: Bitmap
+    var outputStream: ByteArrayOutputStream?=null
+
+    var mDatabaseHelper: DatabaseHelper?=null
+    var mDatabaseHelper1: DatabaseHelper1?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.fetchProfile()
+        mDatabaseHelper=DatabaseHelper(context!!)
+        mDatabaseHelper1=DatabaseHelper1(context!!)
+
     }
 
     override fun showData(data: ProfileModel) {
+        // Toast.makeText(context,""+data.user_international,Toast.LENGTH_LONG).show()
         tvIncreaseDeposit?.visibility(visible)
         Log.d("avatar",profilePhotoUrl)
-       // tvDepositOffline?.visibility(visible)
+        // tvDepositOffline?.visibility(visible)
         tvDepositAmount?.text =
             getString(R.string.deposit_amount_format, NumberFormat.getNumberInstance().format(data.depositAmount))
         val depositOfflineString =getString(R.string.deposit_offline_format, data.depositPhone)
@@ -75,18 +91,25 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
         tvDepositOffline.onClick {
             activity?.dialNumber(data.depositPhone)
         }
+
+
+
+
+        user_id=data.user_id.toString()
         tvEmail?.text = data.email
         tvMobile?.text = data.mobile
         tvMyBids?.text = getString(R.string.my_bids_format, data.userBids)
-        tvQatarId?.text = getString(R.string.qatar_id_format, data.qid)
+
+
+
         tvWinningBids?.text = getString(R.string.winning_bids_format, data.winningBids)
         username = data.username
-        profilePhotoUrl = data.profilePhoto
+        // profilePhotoUrl = data.profilePhoto
         tvUsername?.text = username
-        ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
+        // ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
         tvQidStatus?.text = getString(R.string.qid_upload_status_format, data.qidStatus)
-        ivQid1?.loadFromUrl(data.qidImage1)
-        ivQid2?.loadFromUrl(data.qidImage2)
+//        ivQid1?.loadFromUrl(data.qidImage1)
+//        ivQid2?.loadFromUrl(data.qidImage2)
         /*tvUpload?.visibility(if (data.showUpload) visible else gone)
         tvUpload?.onClick {
             if ("" == qidPath) {
@@ -95,12 +118,100 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
                 uploadPhoto(qidPath)
             }
         }*/
+
+        val sharedPreferences: SharedPreferences=context!!.getSharedPreferences("user_id",
+            Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor =  sharedPreferences.edit()
+        editor.putString("user_id", data.user_id)
+        editor.apply()
+        editor.commit()
+        //  Toast.makeText(MApp.applicationContext(), "no elements"+data.user_id, Toast.LENGTH_SHORT).show();
+        val data1=mDatabaseHelper!!.getItemID(data.user_id)
+        if (data1.count == 0) {
+
+            // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+        } else {
+            while (data1.moveToNext()) {
+
+                val path=data1.getString(3)
+                profilePhotoUrl = path
+                ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
+            }
+        }
+
+
+
+        val data2=mDatabaseHelper1!!.getItemID(user_id,"1")
+        if (data2.count == 0) {
+//            tvUpload1?.visibility(visible)
+//            tvQidUploadInfo.visibility(visible)
+            ivQid1?.loadAvatar("", R.drawable.bg_dark)
+
+        } else {
+
+            while (data2.moveToNext()) {
+
+                val path=data2.getString(3)
+
+
+                ivQid1?.loadFromUrl(path)
+                tvUpload1?.visibility(gone)
+                tvQidUploadInfo.visibility(gone)
+
+                // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+//                val path=data2.getString(3)
+//                profilePhotoUrl = path
+//                ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
+            }
+        }
+        // Toast.makeText(MApp.applicationContext(), "no elements"+data.qidImage1, Toast.LENGTH_SHORT).show();
+
+        val data3=mDatabaseHelper1!!.getItemID(user_id,"2")
+        if (data3.count == 0) {
+//            tvUpload2?.visibility(visible)
+//            tvQidUploadInfo.visibility(visible)
+            ivQid2?.loadAvatar("", R.drawable.bg_dark)
+
+        } else {
+
+
+            while (data3.moveToNext()) {
+
+                val path=data3.getString(3)
+
+
+                ivQid2?.loadFromUrl(path)
+                tvUpload2?.visibility(gone)
+                tvQidUploadInfo.visibility(gone)
+
+                //  Toast.makeText(MApp.applicationContext(), "no elements"+path, Toast.LENGTH_SHORT).show();
+
+//                val path=data2.getString(3)
+//                profilePhotoUrl = path
+//                ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
+            }
+        }
+
         ivProfilePhoto?.onClick {
             if ("" == profilePath) {
-               // openFilePicker(RC_PICK_PROFILE_IMAGE)
-              //  checkPermission(RC_PICK_PROFILE_IMAGE)
+                // openFilePicker(RC_PICK_PROFILE_IMAGE)
+                //  checkPermission(RC_PICK_PROFILE_IMAGE)
                 openCamera(RC_PICK_PROFILE_IMAGE)
             } else {
+
+//                val file = File(profilePath);
+//                val uri = Uri.fromFile(file);
+//                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                outputStream=ByteArrayOutputStream()
+//                scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                val path=MediaStore.Images.Media.insertImage(
+//                    context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                )
+
+
+
                 uploadPhoto(profilePath, "upload_profile_photo")
             }
         }
@@ -109,7 +220,7 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
         }
         tvIncreaseDeposit?.onClick {
             loading.visibility=View.VISIBLE
-           // presenter.getAmount()
+            // presenter.getAmount()
             showDialog()
 //            activity?.depositAlert {
 //                /*val builder = CustomTabsIntent.Builder()
@@ -127,6 +238,19 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
                 if ("" == qidPath1) {
                     openCamera(RC_PICK_QID_IMAGE1)
                 } else {
+
+
+//                    val file = File(qidPath1);
+//                    val uri = Uri.fromFile(file);
+//                    yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                    val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                    val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                    outputStream=ByteArrayOutputStream()
+//                    scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                    val path=MediaStore.Images.Media.insertImage(
+//                        context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                    )
+
                     uploadPhoto(qidPath1)
                 }
             }
@@ -134,6 +258,19 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
                 if ("" == qidPath1) {
                     openCamera(RC_PICK_QID_IMAGE1)
                 } else {
+
+//                    val file = File(qidPath1);
+//                    val uri = Uri.fromFile(file);
+//                    yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                    val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                    val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                    outputStream=ByteArrayOutputStream()
+//                    scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                    val path=MediaStore.Images.Media.insertImage(
+//                        context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                    )
+
+
                     uploadPhoto(qidPath1)
                 }
             }
@@ -144,6 +281,19 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
                 if ("" == qidPath2) {
                     openCamera(RC_PICK_QID_IMAGE2)
                 } else {
+//
+//                    val file = File(qidPath2);
+//                    val uri = Uri.fromFile(file);
+//                    yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                    val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                    val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                    outputStream=ByteArrayOutputStream()
+//                    scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                    val path=MediaStore.Images.Media.insertImage(
+//                        context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                    )
+
+
                     uploadPhoto(qidPath2)
                 }
             }
@@ -151,6 +301,20 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
                 if ("" == qidPath2) {
                     openCamera(RC_PICK_QID_IMAGE2)
                 } else {
+
+
+//                    val file = File(qidPath2);
+//                    val uri = Uri.fromFile(file);
+//                    yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                    val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                    val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                    outputStream=ByteArrayOutputStream()
+//                    scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                    val path=MediaStore.Images.Media.insertImage(
+//                        context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                    )
+
+
                     uploadPhoto(qidPath2)
                 }
             }
@@ -248,11 +412,11 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
 
     private fun openCamera(requestCode: Int) {
         Pix.start(
-                this@ProfileFragment,
-                Options.init()
-                        .setRequestCode(requestCode)
-                        .setCount(1)
-                        .setImageQuality(ImageQuality.LOW)
+            this@ProfileFragment,
+            Options.init()
+                .setRequestCode(requestCode)
+                .setCount(1)
+                .setImageQuality(ImageQuality.LOW)
         )
 
     }
@@ -284,18 +448,23 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        val sharedPreferences: SharedPreferences= context!!.getSharedPreferences("user_id",
+            Context.MODE_PRIVATE)
+        val user_id = sharedPreferences.getString("user_id","")
+
         if (requestCode == RC_PAYMENT) {
             if (resultCode == SUCCESS) {
                 activity?.alert(
-                        Appcompat,
-                        "Payment completed successfully",
-                        "Payment"
+                    Appcompat,
+                    "Payment completed successfully",
+                    "Payment"
                 ) { okButton { it.dismiss() } }?.show()
             } else if (resultCode == FAILED) {
                 activity?.alert(
-                        Appcompat,
-                        "Payment failed. Please try again",
-                        "Payment"
+                    Appcompat,
+                    "Payment failed. Please try again",
+                    "Payment"
                 ) { okButton { it.dismiss() } }?.show()
             } else {
                 toast("Payment cancelled by user")
@@ -304,15 +473,93 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
             if (requestCode == RC_PICK_QID_IMAGE1) {
                 qidPath1 = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)[0]
                 setImageFromFilePath(ivQid1, qidPath1)
+
+
+//                val file = File(qidPath1);
+//                val uri = Uri.fromFile(file);
+//                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                outputStream=ByteArrayOutputStream()
+//                scaled.compress(Bitmap.CompressFormat.JPEG, 60, outputStream)
+//                val path=MediaStore.Images.Media.insertImage(context!!.contentResolver,
+//                     scaled, "IMG_", null
+//                )
+
+              //  val resized=Bitmap.createScaledBitmap(yourBitmap,400,400,true)
+
+               // Toast.makeText(MApp.applicationContext(), ""+scaled, Toast.LENGTH_SHORT).show();
+//
                 uploadPhoto(qidPath1, side = "1")
+
+                val data1=mDatabaseHelper1!!.getItemID(user_id,"1")
+                if (data1.count == 0) {
+
+                    AddData1(user_id, "1", qidPath1)
+
+
+
+
+                }
+
+
             } else if (requestCode == RC_PICK_QID_IMAGE2) {
                 qidPath2 = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)[0]
                 setImageFromFilePath(ivQid2, qidPath2)
+
+
+
+//                val file = File(qidPath2);
+//                val uri = Uri.fromFile(file);
+//                yourBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+//                val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//                val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//                outputStream=ByteArrayOutputStream()
+//                scaled.compress(Bitmap.CompressFormat.JPEG, 60, outputStream)
+//                val path=MediaStore.Images.Media.insertImage(
+//                    context?.contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//                )
+//
                 uploadPhoto(qidPath2, side = "2")
+                val data1=mDatabaseHelper1!!.getItemID(user_id,"2")
+                if (data1.count == 0) {
+
+                    AddData1(user_id, "2", qidPath2)
+
+
+
+                    //  Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+                }
+
+
+
             } else if (requestCode == RC_PICK_PROFILE_IMAGE) {
                 profilePath = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)[0]
                 setAvatar(ivProfilePhoto, profilePath)
-                uploadPhoto(profilePath, "upload_profile_photo")
+
+
+
+                val sharedPreferences2: SharedPreferences=context!!.getSharedPreferences("path",
+                    Context.MODE_PRIVATE)
+                val editor1: SharedPreferences.Editor =  sharedPreferences2.edit()
+                editor1.putString("path", profilePath)
+                editor1.apply()
+                editor1.commit()
+                val data1=mDatabaseHelper!!.getItemID(user_id)
+                if (data1.count == 0) {
+
+                    AddData(user_id, "sonumol", profilePath)
+
+
+
+                    // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    mDatabaseHelper!!.updateName(user_id,"son",profilePath)
+                }
+
+
             }
         } else {
             qidPath1 = ""
@@ -340,8 +587,8 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         ProfilePresenter(this)
         progress = activity!!.getProgressDialog()
@@ -352,8 +599,8 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
         Log.d("Filespags",filePath)
         showUploadingQid()
         activity?.uploadFile(
-                filePath, CipherClient.serverApi() + function,
-                "side" to side
+            filePath, CipherClient.serverApi() + function,
+            "side" to side
         ) { status, error ->
             hideUploadingQid()
             when {
@@ -382,5 +629,51 @@ class ProfileFragment : MzFragment(), ProfileContract.View {
             }
         }
     }
+    fun AddData(user_id: String, Name: String?, Path: String?) {
 
+
+        val insertData=
+            mDatabaseHelper!!.addData(user_id, Name, Path)
+        if (insertData) {
+            val data=mDatabaseHelper!!.data
+            if (data.count == 0) {
+                // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+            } else {
+                while (data.moveToNext()) {
+                    val id=data.getString(0)
+                    val name=data.getString(1)
+                    val quantity=data.getString(2)
+
+
+
+//                    Toast.makeText(MApp.applicationContext(),"t"+data.getString(1),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+
+
+    fun AddData1(user_id: String, side: String?, Path: String?) {
+
+
+        val insertData=
+            mDatabaseHelper1!!.addData(user_id, side, Path)
+        if (insertData) {
+            val data=mDatabaseHelper1!!.data
+            if (data.count == 0) {
+                //   Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+            } else {
+                while (data.moveToNext()) {
+                    val id=data.getString(0)
+                    val name=data.getString(1)
+                    val quantity=data.getString(2)
+
+
+
+//                    Toast.makeText(MApp.applicationContext(),"t"+data.getString(1),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 }

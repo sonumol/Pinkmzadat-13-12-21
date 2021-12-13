@@ -59,11 +59,11 @@ class FAQFragment : MzFragment(), FAQContract.View {
         savedInstanceState: Bundle?
     ): View? {
         FAQPresenter(this)
-        return super.onCreateView(com.platinummzadat.qa.R.layout.fragment_faq, inflater, container)
+        return super.onCreateView(R.layout.fragment_faq, inflater, container)
     }
 
     override fun onResume() {
         super.onResume()
-        fragmentListener?.setTitle(getString(com.platinummzadat.qa.R.string.nav_faq))
+        fragmentListener?.setTitle(getString(R.string.nav_faq))
     }
 }

@@ -1,12 +1,9 @@
 package com.platinummzadat.qa.data.remote
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import com.platinummzadat.qa.appLanguage
-import com.platinummzadat.qa.connection.RetrofitClient
 import com.platinummzadat.qa.data.MzDataSource
 import com.platinummzadat.qa.data.models.*
+import com.platinummzadat.qa.firebaseId
 import com.platinummzadat.qa.mToken
 import com.platinummzadat.qa.networking.HTTPClient
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +12,7 @@ import kotlinx.coroutines.launch
 import net.idik.lib.cipher.so.CipherClient
 import raj.nishin.wolfrequest.ERROR
 import raj.nishin.wolfrequest.WolfRequest
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 
 /**
  * Created by WOLF
@@ -35,7 +29,9 @@ private const val E_LOGIN_QID_MOBILE_MISMATCH = "login_qid_mobile_mismatch"
 private const val E_LOGIN_BLOCKED_USER = "login_blocked_user"
 private const val E_BID_EXPIRED = "bid_expired"
 private const val DEVICE_TYPE = 1
-
+private const val E_LOGIN_DUPLICATE_CR = "login_duplicate_cr_no"
+private const val E_LOGIN_ONLY_REGISTERED = "login_cr_user_not_approved"
+private const val E_LOGIN_CR_NO_MOBILE_MISMATCH = "login_cr_no_mobile_mismatch"
 /*
 
 //Resend otp
@@ -164,10 +160,10 @@ class RemoteDataSource : MzDataSource {
         }
     }
 
-    override fun getRefundRequest(imei: String, result: (status: String, data: RefundRequestRes?, error: ERROR) -> Unit) {
+    override fun getRefundRequest(depositid: String, result: (status: String, data: RefundRequestRes?, error: ERROR) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.getRefundRequest(mToken,DEVICE_TYPE, appLanguage,imei  ).await()
+                val result = HTTPClient.coroutineRestfulAPI.getRefundRequest(mToken,DEVICE_TYPE, appLanguage,depositid ).await()
                 result(result.status!!,result, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -239,6 +235,7 @@ class RemoteDataSource : MzDataSource {
     override fun splash(
         userId: Int,
         firebaseId: String,
+        type:Int,
         result: (status: Boolean, data: SplashModel?, error: ERROR) -> Unit
     ) {
 //        WolfRequest(SERVER_ROOT + "splash", {
@@ -262,7 +259,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.splash(firebaseId,DEVICE_TYPE, appLanguage ).await()
+                val result = HTTPClient.coroutineRestfulAPI.splash(mToken,firebaseId,DEVICE_TYPE,type, appLanguage ).await()
                 result(result.status!!,result.data!!, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -383,7 +380,33 @@ class RemoteDataSource : MzDataSource {
         }
 
     }
-
+//    override fun category_list(
+//        firebaseId: String,
+//        type: Int,
+//        result: (status: Boolean, data: ArrayList<DashboardItemModel1>, error: ERROR) -> Unit
+//    ) {
+////        WolfRequest(SERVER_ROOT + "notifications", {
+////            result(it.status, it.parseList(), ERROR.NONE)
+////        }, {
+////            result(false, ArrayList(), ERROR.API_ERROR)
+////        }, {
+////            result(false, ArrayList(), ERROR.NO_INTERNET)
+////        }).POST("user_id" to userId, "device_type" to DEVICE_TYPE, "lang" to appLanguage)
+//
+//        GlobalScope.launch(Dispatchers.Main) {
+//            try {
+//                val result = HTTPClient.coroutineRestfulAPI.category_list(type, appLanguage).await()
+//                result(result.status!!.toString().toBoolean(),result.data, ERROR.NONE)
+//            } catch (e: HttpException) {
+//                e.printStackTrace()
+//                result(false, ArrayList(), ERROR.API_ERROR)
+//            } catch (e: java.lang.Exception) {
+//                result(false, ArrayList(), ERROR.NO_INTERNET)
+//                e.printStackTrace()
+//            }
+//        }
+//
+//    }
     override fun submitFeedback(
         userId: Int,
         auctionId: Int,
@@ -525,6 +548,7 @@ class RemoteDataSource : MzDataSource {
                     result(result.status!!, ERROR.DUPLICATE_DETAILS)
                 }else{
                     result(result.status!!, ERROR.NONE)
+                   // Log.d("gagag", result.toString())
                 }
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -624,6 +648,7 @@ class RemoteDataSource : MzDataSource {
         userId: Int,
         auctionId: Int,
         amount: Double,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     ) {
 //        WolfRequest(SERVER_ROOT + "add_bid", {
@@ -648,7 +673,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.placeBid(mToken,auctionId,amount,DEVICE_TYPE, appLanguage ).await()
+                val result = HTTPClient.coroutineRestfulAPI.placeBid(mToken,auctionId,amount,type,DEVICE_TYPE, appLanguage ).await()
                 result(result.status!!.toString().toBoolean(),result.data!!, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -661,6 +686,7 @@ class RemoteDataSource : MzDataSource {
     }
 
     override fun wishingBids(
+        wishlistid:String,
         userId: String,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     ) {
@@ -676,7 +702,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.wishingBids(mToken,userId, DEVICE_TYPE, appLanguage).await()
+                val result = HTTPClient.coroutineRestfulAPI.wishingBids(mToken,wishlistid,userId, DEVICE_TYPE, appLanguage).await()
                 result(result.status!!,result.data!!, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -835,6 +861,7 @@ class RemoteDataSource : MzDataSource {
     override fun fetchDetails(
         userId: Int,
         auctionId: Int,
+        type: Int,
         result: (status: Boolean, data: DetailsModel?, error: ERROR) -> Unit
     ) {
 //        WolfRequest(SERVER_ROOT + "auction_details_android", {
@@ -847,7 +874,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.fetchDetails(mToken,auctionId,DEVICE_TYPE, appLanguage ).await()
+                val result = HTTPClient.coroutineRestfulAPI.fetchDetails(mToken,auctionId,DEVICE_TYPE,type, appLanguage ).await()
                 result(result.status,result.data, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -865,6 +892,7 @@ class RemoteDataSource : MzDataSource {
         filter: Int,
         offset: Int,
         limit: Int,
+        type: Int,
         result: (status: Boolean, data: ArrayList<AuctionItemModel>, error: ERROR) -> Unit
     ) {
 /*        WolfRequest(SERVER_ROOT + "view_auction", {
@@ -885,7 +913,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.fetchAuctions(mToken,categoryId,filter,offset,limit,DEVICE_TYPE, appLanguage ).await()
+                val result = HTTPClient.coroutineRestfulAPI.fetchAuctions(mToken,categoryId,filter,offset,limit,type,DEVICE_TYPE, appLanguage ).await()
                 result(result.status!!,result.data!!, ERROR.NONE)
             } catch (e: HttpException) {
                 e.printStackTrace()
@@ -900,6 +928,7 @@ class RemoteDataSource : MzDataSource {
 
     override fun fetchDashboard(
         firebaseId: String,
+        type: Int,
         result: (status: Boolean, data: DashboardModel?, error: ERROR) -> Unit
     ) {
 
@@ -913,7 +942,7 @@ class RemoteDataSource : MzDataSource {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.fetchDashboard(mToken,firebaseId, DEVICE_TYPE, appLanguage).await()
+                val result = HTTPClient.coroutineRestfulAPI.fetchDashboard(mToken,firebaseId, DEVICE_TYPE,type, appLanguage).await()
                 result(result.status!!,result.data, ERROR.NONE)
 
 
@@ -990,6 +1019,7 @@ class RemoteDataSource : MzDataSource {
     override fun login(
         qatarId: String,
         phone: String,
+        cr_no: String,
         hash: String,
         result: (status: Boolean, data: Int, error: ERROR) -> Unit
     ) {
@@ -1029,7 +1059,7 @@ class RemoteDataSource : MzDataSource {
         )*/
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val result = HTTPClient.coroutineRestfulAPI.login(qatarId,phone,hash,DEVICE_TYPE, appLanguage ).await()
+                val result = HTTPClient.coroutineRestfulAPI.login(qatarId,phone,cr_no,hash,DEVICE_TYPE, appLanguage ).await()
                 result(result.status!!.toBoolean(),result.data!!, ERROR.NONE)
 
                 if (result.status.equals("true")) {
@@ -1047,6 +1077,15 @@ class RemoteDataSource : MzDataSource {
                         }
                         E_LOGIN_BLOCKED_USER -> {
                             result(false, -1, ERROR.BLOCKED_USER)
+                        }
+                        E_LOGIN_DUPLICATE_CR -> {
+                            result(false, -1, ERROR. DUPLICATE_CR)
+                        }
+                        E_LOGIN_ONLY_REGISTERED -> {
+                            result(false,-1, ERROR. NO_REGISTERD_PERSON)
+                        }
+                        E_LOGIN_CR_NO_MOBILE_MISMATCH -> {
+                            result(false, -1, ERROR. CR_MISMACH)
                         }
 
                         else -> {

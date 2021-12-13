@@ -1,20 +1,25 @@
 package com.platinummzadat.qa.views.splash
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import com.google.firebase.iid.FirebaseInstanceId
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.data.models.SplashModel
 import com.platinummzadat.qa.views.registration.password.PasswordActivity
 import com.platinummzadat.qa.views.root.RootActivity
 import com.platinummzadat.qa.views.welcome.WelcomeActivity
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+import com.platinummzadat.qa.views.companyregister.RegisterAsCompanyActivity
+import com.platinummzadat.qa.views.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_splash.*
-import net.idik.lib.cipher.so.CipherClient
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
 import org.jetbrains.anko.design.indefiniteSnackbar
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import raj.nishin.wolfpack.wlog
 // emulator 19
 // phone 18
@@ -22,9 +27,14 @@ class SplashActivity : MzActivity(), SplashContract.View {
     override lateinit var presenter: SplashContract.Presenter
     private var itemId = -1
     private var type = ""
+    private var mTracker: Tracker?=null
+    private val sharedPrefFile = "kotlinsharedpreference"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SplashPresenter(this)
+
+
         type = intent?.extras?.getString("type") ?: ""
         itemId = (intent?.extras?.getString("item_id")?:"-1").toInt()
 //        currentUserId = -1
@@ -33,27 +43,65 @@ class SplashActivity : MzActivity(), SplashContract.View {
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
             wlog("token: ${it.token}")
             firebaseId = it?.token ?: ""
-            /*Handler().postDelayed({
-                if (-1 == currentUserId) {
-                    startActivity<WelcomeActivity>()
-                } else {
-                    startActivity<RootActivity>()
-                }
-                finish()
-            }, 1000)*/
-            presenter.splash()
+
+            val sharedPreferences: SharedPreferences= this.getSharedPreferences(sharedPrefFile,
+                Context.MODE_PRIVATE)
+//        val sharedIdValue = sharedPreferences.getInt("id_key","")
+            val sharedNameValue = sharedPreferences.getString("id_key","")
+            //Log.d("ga", firebaseId)
+            if(sharedNameValue=="Personal" || sharedNameValue=="شخصي") {
+                presenter.splash(1)
+                // Toast.makeText(applicationContext,""+ firebaseId ,Toast.LENGTH_LONG).show()
+            }
+            else
+            {
+                presenter.splash(2)
+            }
         }
 
+        val application=application as MApp
+        mTracker=application.getDefaultTracker()
+        mTracker!!.send(
+            HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build()
+        )
+//
     }
+    override fun onResume() {
+        super.onResume()
 
+        mTracker!!.setScreenName("Image~" + "SplashActivity")
+        mTracker!!.send(HitBuilders.ScreenViewBuilder().build())
+    }
     override fun showSuccess(data: SplashModel) {
+        //Toast.makeText(applicationContext,"a"+data.status,Toast.LENGTH_LONG).show()
         if (-1 == currentUserId) {
             startActivity<WelcomeActivity>()
         } else {
-            if (5 == data.status.toInt()) {
-                startActivity<PasswordActivity>()
-            } else {
+            if (2 == data.status.toInt()) {
+                startActivity<LoginActivity>()
+            }
+            else if(5 == data.status.toInt()) {
+                startActivity<PasswordActivity>()//personal
+            }
+            else if(3 == data.status.toInt()) {
+                startActivity<RegisterAsCompanyActivity>()
+            }
+            else if(4 == data.status.toInt()) {
+                val intent = Intent(this@SplashActivity, PasswordActivity::class.java)
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.putExtra("toPath","company")
+                startActivity(intent)
+                this.finish()
+            }
+            else
+            {
+//                Toast.makeText(applicationContext,"a"+data.status,Toast.LENGTH_LONG).show()
                 startActivity<RootActivity>("type" to type, "item_id" to itemId)
+//                Toast.makeText(applicationContext,"a"+type,Toast.LENGTH_LONG).show()
             }
         }
         finish()
@@ -82,7 +130,19 @@ class SplashActivity : MzActivity(), SplashContract.View {
 
     override fun showApiError() {
         root?.indefiniteSnackbar(getString(R.string.some_error_occurred), getString(R.string.retry)) {
-            presenter.splash()
+            val sharedPreferences: SharedPreferences= this.getSharedPreferences(sharedPrefFile,
+                Context.MODE_PRIVATE)
+//        val sharedIdValue = sharedPreferences.getInt("id_key","")
+            val sharedNameValue = sharedPreferences.getString("id_key","")
+            //Log.d("ga", firebaseId)
+            if(sharedNameValue=="Personal" || sharedNameValue=="شخصي") {
+                presenter.splash(1)
+                // Toast.makeText(applicationContext,""+ firebaseId ,Toast.LENGTH_LONG).show()
+            }
+            else
+            {
+                presenter.splash(2)
+            }
         }
     }
 

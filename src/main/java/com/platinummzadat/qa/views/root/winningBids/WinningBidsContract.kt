@@ -8,7 +8,7 @@ interface WinningBidsContract {
     interface View : BaseView<Presenter> {
         fun showData(data: ArrayList<WinningBidsDetails>)
     }
-    interface Presenter : BasePresenter {
+    interface Presenter :BasePresenter {
         fun winningBids()
     }
 }

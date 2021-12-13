@@ -397,7 +397,14 @@ data class  NotificationModelRes(
         val status: Boolean
 )
 
-
+//data class  category_listModelRes(
+//    @SerializedName("data")
+//    val `data`:  ArrayList<DashboardItemModel1>,
+//    @SerializedName("message")
+//    val message: String,
+//    @SerializedName("status")
+//    val status: Boolean
+//)
 
 
 data class ProfileModelRes(

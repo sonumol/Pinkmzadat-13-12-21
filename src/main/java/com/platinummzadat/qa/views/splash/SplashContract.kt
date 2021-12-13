@@ -10,6 +10,6 @@ interface SplashContract {
         fun showBlocked()
     }
     interface Presenter : BasePresenter {
-        fun splash()
+        fun splash(type: Int)
     }
 }

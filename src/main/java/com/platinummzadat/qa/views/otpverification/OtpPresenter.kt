@@ -1,6 +1,5 @@
 package com.platinummzadat.qa.views.otpverification
 
-import android.provider.Settings.Global.getString
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.MApp.Companion.MzRepo
 import com.platinummzadat.qa.data.MzadatRepository.Companion.OTP_TYPE_BLOCKED
@@ -10,7 +9,6 @@ import com.platinummzadat.qa.data.MzadatRepository.Companion.OTP_TYPE_MORE
 import com.platinummzadat.qa.data.MzadatRepository.Companion.OTP_TYPE_MORE_EXPIRE
 import com.platinummzadat.qa.data.MzadatRepository.Companion.OTP_TYPE_REGISTER
 import raj.nishin.wolfrequest.ERROR
-import java.security.MessageDigest
 
 /**
  * Created by WOLF
@@ -44,19 +42,19 @@ class OtpPresenter(private val view: OtpContract.View) : OtpContract.Presenter {
 
                status->{
 
-                   if(accountType=="Personal") {
+                   if(accountType=="Personal" || accountType=="شخصي") {
                        when (message) {
                            OTP_TYPE_LOGIN -> {
                                currentUserId = tempUserId
                                tempUserId = -1
                                mToken=data
-                               view.showSuccessLogin()
+                               view.showSuccessLogin(data)
                            }
                            OTP_TYPE_MORE -> {
                                currentUserId = tempUserId
                                tempUserId = -1
                                mToken=data
-                               view.showSuccessLogin()
+                               view.showSuccessLogin( data)
                            }
                            OTP_TYPE_REGISTER -> {
                                currentUserId = tempUserId

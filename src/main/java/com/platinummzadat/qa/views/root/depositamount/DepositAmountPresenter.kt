@@ -1,6 +1,5 @@
 package com.platinummzadat.qa.views.root.depositamount
 
-import android.widget.Toast
 import com.platinummzadat.qa.MApp.Companion.MzRepo
 import com.platinummzadat.qa.currentUserId
 import raj.nishin.wolfrequest.ERROR
@@ -15,9 +14,9 @@ class DepositAmountPresenter(private val view: DepositAmountContract.View) : Dep
     }
 
     override fun fetchDepositAmount() {
-        view.showLoading()
+       // view.showLoading()
         MzRepo.fetchDepositHistory(currentUserId) { status, data, error ->
-            view.hideLoading()
+            //view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
                     view.showApiError()
@@ -40,7 +39,7 @@ class DepositAmountPresenter(private val view: DepositAmountContract.View) : Dep
 
     override fun getAmount() {
         MzRepo.getAmount(currentUserId) { status, data, error ->
-            view.hideLoading()
+           // view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
                     view.showApiError()
@@ -59,10 +58,10 @@ class DepositAmountPresenter(private val view: DepositAmountContract.View) : Dep
         }
     }
 
-    override fun getRefundRequest(imei:String) {
-        view.showLoading()
-        MzRepo.getRefundRequest(imei) { status, data, error ->
-            view.hideLoading()
+    override fun getRefundRequest() {
+//        view.showLoading()
+        MzRepo.getRefundRequest("g") { status, data, error ->
+//            view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {
                     view.showApiError()

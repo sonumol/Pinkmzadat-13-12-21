@@ -7,7 +7,6 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.platinummzadat.qa.MApp
 import com.platinummzadat.qa.networking.interceptor.HeaderInterceptor
-import com.platinummzadat.qa.networking.interceptor.LoggingInterceptor
 import net.idik.lib.cipher.so.CipherClient
 import okhttp3.*
 import retrofit2.CallAdapter
@@ -31,8 +30,8 @@ object HTTPClient {
             .Builder()
             .readTimeout(120, TimeUnit.SECONDS)
             .connectTimeout(120, TimeUnit.SECONDS)
-           // .addNetworkInterceptor(StethoInterceptor())
-           // .addInterceptor(HeaderInterceptor())
+            .addNetworkInterceptor(StethoInterceptor())
+           .addInterceptor(HeaderInterceptor())
             .addInterceptor { chain ->
                 var request = chain.request()
                 request = if (hasNetwork(

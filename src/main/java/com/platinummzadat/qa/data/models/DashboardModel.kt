@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName
  */
 data class DashboardModel(
     @SerializedName("username") val username: String,
+    @SerializedName("user_id") val user_id: String,
+    @SerializedName("company_name") val company_name: String,
     @SerializedName("profile_photo") val profilePhoto: String,
     @SerializedName("mobile") val mobileNumber: String,
     @SerializedName("last_login") val lastLogin: String,
@@ -16,5 +18,8 @@ data class DashboardModel(
     @SerializedName("qid_message") val qidMessage: String?,
     @SerializedName("user_blocked") val blocked: Boolean?,
     @SerializedName("version_name") val version_name: String?,
+    @SerializedName("user_approved") val user_approved:Int,
     @SerializedName("category") val items: ArrayList<DashboardItemModel>
+
+
 )

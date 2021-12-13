@@ -17,20 +17,17 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.data.models.AmountData
-import com.platinummzadat.qa.data.models.AmountModel
 import com.platinummzadat.qa.data.models.DepositModel
 import com.platinummzadat.qa.data.models.RefundRequestRes
 import com.platinummzadat.qa.views.root.profile.deposit.FAILED
 import com.platinummzadat.qa.views.root.profile.deposit.PaymentActivity
 import com.platinummzadat.qa.views.root.profile.deposit.SUCCESS
-import com.platinummzadat.qa.views.root.profile.deposit.depositAlert
 import kotlinx.android.synthetic.main.custome_dialog_amout.*
 import kotlinx.android.synthetic.main.fragment_my_deposit_amount.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
 import raj.nishin.wolfpack.*
@@ -52,7 +49,7 @@ class DepositAmountFragment : MzFragment(), DepositAmountContract.View {
         tvDepositRefund.setOnClickListener {
             this@DepositAmountFragment.requireContext().alert(Appcompat, getString(R.string.sure_you_wanna_proceed), "") {
                 positiveButton(getString(R.string.proceed)) {
-                    presenter.getRefundRequest( AppSignatureHelper(this@DepositAmountFragment.requireContext()).appSignatures[0])
+                    presenter.getRefundRequest()
                     it.dismiss()
                 }
                 negativeButton(getString(R.string.cancel)) {
@@ -67,17 +64,17 @@ class DepositAmountFragment : MzFragment(), DepositAmountContract.View {
     override fun showData(data: DepositModel) {
        // tvDepositOffline?.visibility(visible)
         if(data.refund_request_status){
-            tvDepositRefund.visibility=View.VISIBLE
+            tvDepositRefund.visibility=View.GONE
             tvDepositRefund.isEnabled=false
             tvDepositRefund.isClickable=false
             tvDepositRefund.setBackgroundColor(resources.getColor(R.color.colorNavIcons))
             tvDepositRefund.setText(resources.getString(R.string.your_request_refund_is_progress))
         }else{
-            tvDepositRefund.visibility=View.VISIBLE
+            tvDepositRefund.visibility=View.GONE
             tvDepositRefund.isEnabled=true
             tvDepositRefund.isClickable=true
             tvDepositRefund.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-            tvDepositRefund.setText(resources.getString(R.string.click_here_to_ireques_refund))
+            //tvDepositRefund.setText(resources.getString(R.string.click_here_to_ireques_refund))
         }
         tvTotalDeposit?.text =
             getString(R.string.total_deposit_amount_format, NumberFormat.getNumberInstance().format(data.id))

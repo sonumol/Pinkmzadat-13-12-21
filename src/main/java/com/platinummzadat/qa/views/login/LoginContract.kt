@@ -7,6 +7,9 @@ interface LoginContract {
     interface View : BaseView<Presenter> {
         fun showSuccess()
         fun showInvalidCredentials()
+        fun showInvalidCredentials1()
+        fun showInvalidCredentials2()
+        fun showInvalidCredentials3()
         fun showBlockedUser(messageResId: Int, append: String)
     }
 
@@ -14,6 +17,7 @@ interface LoginContract {
         fun authenticate(
             qatarId: String,
             phone: String,
+            crnumber:String,
             hash: String
         )
     }

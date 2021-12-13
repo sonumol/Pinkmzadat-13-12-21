@@ -16,7 +16,7 @@ object RetrofitClient {
             val original = chain.request()
             val requestBuilder = original.newBuilder()
                 //.addHeader("x-auth-token", "")
-                .method(original.method(), original.body())
+                .method(original.method, original.body)
             val request = requestBuilder.build()
             chain.proceed(request)
         }.build()
@@ -25,7 +25,7 @@ object RetrofitClient {
         .setLenient()
         .create()
 
-    val instance: com.platinummzadat.qa.connection.ApiInterface by lazy {
+    val instance: ApiInterface by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(CipherClient.serverApi())
             .addConverterFactory(GsonConverterFactory.create(gson))

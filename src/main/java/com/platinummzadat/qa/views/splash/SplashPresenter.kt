@@ -3,8 +3,6 @@ package com.platinummzadat.qa.views.splash
 import com.platinummzadat.qa.MApp.Companion.MzRepo
 import com.platinummzadat.qa.currentUserId
 import com.platinummzadat.qa.firebaseId
-import com.platinummzadat.qa.trendingSearch
-import raj.nishin.wolfpack.gson
 import raj.nishin.wolfrequest.ERROR
 
 /**
@@ -16,9 +14,9 @@ class SplashPresenter(private val view:SplashContract.View):SplashContract.Prese
         view.presenter =this
     }
 
-    override fun splash() {
+    override fun splash(type: Int) {
         view.showLoading()
-        MzRepo.splash(currentUserId, firebaseId){status, data, error ->
+        MzRepo.splash(currentUserId, firebaseId,type){status, data, error ->
             view.hideLoading()
             when {
                 error == ERROR.API_ERROR -> {

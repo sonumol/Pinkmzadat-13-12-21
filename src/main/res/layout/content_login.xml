@@ -7,7 +7,7 @@
     android:fillViewport="true"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.platinummzadat.qa.views.login.LoginActivity"
+    tools:context=".views.login.LoginActivity"
     tools:showIn="@layout/activity_login">
 
 
@@ -86,29 +86,29 @@
                 android:layout_height="wrap_content"
                 android:background="#024CAF50">
 
-                    <RadioButton
-                        android:id="@+id/radioPersonal"
-                        style="@style/LoginTitle"
+                <RadioButton
+                    android:id="@+id/radioPersonal"
+                    style="@style/LoginTitle"
 
-                        android:backgroundTint="@color/primary_button_text_color"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:buttonTint="@color/primary_button_text_color"
-                        android:textColor="@color/primary_button_text_color"
-                        android:layout_height="wrap_content"
-                        android:text="@string/personal"
-                        android:textSize="16sp" />
+                    android:backgroundTint="@color/primary_button_text_color"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/primary_button_text_color"
+                    android:textColor="@color/primary_button_text_color"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal"
+                    android:textSize="16sp" />
 
-                    <RadioButton
-                        android:id="@+id/radioCompany"
-                        style="@style/LoginTitle"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="@string/company"
-                        android:buttonTint="@color/primary_button_text_color"
-                        android:textColor="@color/primary_button_text_color"
-                        android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/radioCompany"
+                    style="@style/LoginTitle"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/company"
+                    android:buttonTint="@color/primary_button_text_color"
+                    android:textColor="@color/primary_button_text_color"
+                    android:textSize="16sp" />
             </RadioGroup>
             <EditText
                 android:id="@+id/etQatarId"
@@ -116,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:textCursorDrawable="@drawable/black_cursor"
                 android:backgroundTint="#fafafa"
                 android:digits="0123456789"
                 android:ems="10"
@@ -127,10 +126,51 @@
                 android:nextFocusDown="@+id/etMobileNumber"
                 android:textColor="@color/colorEditTextLogin"
                 android:textColorHint="@color/colorTextHintLogin"
+                android:textCursorDrawable="@drawable/black_cursor"
                 android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/etMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#fafafa"
+                android:layout_marginRight="32dp"
+                android:digits="0123456789"
+                android:ems="10"
+
+                android:textCursorDrawable="@drawable/black_cursor"
+                android:hint="@string/enter_mobile_no"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLength="8"
+                android:textColor="@color/colorEditTextLogin"
+                android:textColorHint="@color/colorTextHintLogin"
+                android:textStyle="italic" />
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/etcrnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:textCursorDrawable="@drawable/black_cursor"
+                android:backgroundTint="#fafafa"
+                android:digits="0123456789"
+                android:ems="10"
+                android:hint="@string/enter_CR"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="8"
+                android:nextFocusDown="@+id/etMobileNumber"
+                android:textColor="@color/colorEditTextLogin"
+                android:textColorHint="@color/colorTextHintLogin"
+                android:textStyle="italic" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/etMobileNumber1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"

@@ -1,20 +1,21 @@
 package com.platinummzadat.qa.views.root.auctions
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.platinummzadat.qa.AppSignatureHelper
-import com.platinummzadat.qa.MzFragment
-import com.platinummzadat.qa.R
+import com.fxn.stash.Stash
+import com.platinummzadat.qa.*
 import com.platinummzadat.qa.data.models.AuctionItemModel
-import com.platinummzadat.qa.noInternetAlert
 import kotlinx.android.synthetic.main.fragment_auctions.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
@@ -50,7 +51,7 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
     private var showMode = AUCTION_MODE_ALL
 
     private var offset = 0
-    private val limit = 15
+    private val limit = 30
     private var isLoading = false
     private var hasMoreData = true
     private var visibleItemCount = -1
@@ -65,6 +66,10 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
     private var isActive = false
 
     lateinit var adapter: AuctionAdapter
+
+    private val sharedPrefFile = "kotlinsharedpreference"
+    private var type = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentListener?.setTitle(categoryName)
@@ -73,6 +78,21 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
         offset = 0
         itemIndex = 0
         hasMoreData = true
+
+
+        val sharedPreferences: SharedPreferences= context!!.getSharedPreferences(sharedPrefFile,
+            Context.MODE_PRIVATE)
+        val sharedNameValue = sharedPreferences.getString("id_key","")
+        if(sharedNameValue=="Personal" || sharedNameValue=="شخصي") {
+
+            type=1
+
+        }
+        else{
+            type=2
+
+        }
+       // Toast.makeText(MApp.applicationContext(),"a"+type,Toast.LENGTH_LONG).show()
         cvFilters?.visibility(if (AUCTION_MODE_ALL == showMode) visible else gone)
         when (showMode) {
             AUCTION_MODE_SEARCH -> {
@@ -82,16 +102,30 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
                 presenter.fetchMyBids(requestTime, false)
             }
             AUCTION_MODE_WISHING_BIDS -> {
-                presenter.fetchWishingBids(requestTime, false, AppSignatureHelper(this@AuctionsFragment.requireContext()).appSignatures[0])
+                var followAuctionList = Stash.getStringSet("favoriteProductIdsList")
+                var  auctionid=followAuctionList.toString().replace("[","").replace("]","")
+                presenter.fetchWishingBids(auctionid,requestTime, false, AppSignatureHelper(this@AuctionsFragment.requireContext()).appSignatures[0])
+               // Toast.makeText(MApp.applicationContext(),""+ auctionid ,Toast.LENGTH_LONG).show()
+
             }
             else -> {
-                presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime, false)
+                presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime,type, false)
             }
         }
     }
 
 
     override fun showData(dataSet: ArrayList<AuctionItemModel>) {
+       // Log.d("sssooo", dataSet.toString())
+
+        val sharedPreferences: SharedPreferences= activity!!.getSharedPreferences("item.listing_count",
+            Context.MODE_PRIVATE)
+//        val sharedIdValue = sharedPreferences.getInt("id_key","")
+        val listing_count = sharedPreferences.getInt("item.listing_count",0)
+//          Toast.makeText(MApp.applicationContext(),""+listing_count,Toast.LENGTH_LONG).show()
+
+
+//
         bidAmount = (-1).toDouble()
         bidItemId = -1
         rvAuctions?.itemOffset(8)
@@ -112,13 +146,17 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
             rvAuctions?.layoutManager(LinearLayoutManager(activity))
             ivDisplayMode?.setImageResource(R.drawable.ic_view_grid)
             rvAuctions?.let {
-                (it.layoutManager as LinearLayoutManager).scrollToPosition(itemIndex)
+                val value =Integer.parseInt(listing_count.toString())
+              //  Toast.makeText(MApp.applicationContext(),"ss"+value,Toast.LENGTH_LONG).show()
+                (it.layoutManager as LinearLayoutManager).scrollToPosition(value)
             }
         } else {
             rvAuctions?.layoutManager(GridLayoutManager(activity, 2))
             ivDisplayMode?.setImageResource(R.drawable.ic_view_list)
             rvAuctions?.let {
-                (it.layoutManager as GridLayoutManager).scrollToPosition(itemIndex)
+                val value =Integer.parseInt(listing_count.toString())
+             //   Toast.makeText(MApp.applicationContext(),"ss"+value,Toast.LENGTH_LONG).show()
+                (it.layoutManager as GridLayoutManager).scrollToPosition(value)
             }
         }
         ivDisplayMode?.onClick {
@@ -148,11 +186,11 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
                             (it.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
                         }
                     }
-                    if (((visibleItemCount + pastVisibleItems) >= totalItemCount) && !isLoading) {
-                        offset += limit
-                        itemIndex = offset - 1
-                        presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime, false)
-                    }
+//                    if (((visibleItemCount + pastVisibleItems) >= totalItemCount) && !isLoading) {
+//                        offset += limit
+//                        itemIndex = offset - 1
+//                        presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime, type,false)
+//                    }
                 }
             }
 
@@ -249,7 +287,7 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
         if (!newState) {
             filter = FILTER_NONE
         }
-        presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime, false)
+        presenter.fetchAuctions(categoryId, filter, offset, limit, requestTime, type,false)
     }
 
 
@@ -259,7 +297,7 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
 
     override fun showErrorPlacingBid() {
         fragmentListener?.onError {
-            presenter.placeBid(bidItemId, bidAmount)
+            presenter.placeBid(bidItemId, bidAmount,type)
         }
     }
 
@@ -337,10 +375,12 @@ class AuctionsFragment : MzFragment(), AuctionsContract.View {
                 presenter.fetchMyBids(requestTime, true)
             }
             AUCTION_MODE_WISHING_BIDS -> {
-                presenter.fetchWishingBids(requestTime, true,AppSignatureHelper(this@AuctionsFragment.requireContext()).appSignatures[0])
+                var followAuctionList = Stash.getStringSet("favoriteProductIdsList")
+                var  auctionid=followAuctionList.toString().replace("[","").replace("]","")
+                presenter.fetchWishingBids(auctionid,requestTime, true,AppSignatureHelper(this@AuctionsFragment.requireContext()).appSignatures[0])
             }
             else -> {
-                presenter.fetchAuctions(categoryId, filter, 0, offset + limit, requestTime, true)
+                presenter.fetchAuctions(categoryId, filter, 0, offset + limit, requestTime, type,true)
             }
         }
     }

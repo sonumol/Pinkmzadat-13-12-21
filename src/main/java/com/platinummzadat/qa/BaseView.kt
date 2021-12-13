@@ -11,6 +11,7 @@ interface BaseView<T> {
     fun hideApiError(){}
     fun showEmptyData() {}
     fun sessionTimeOut()
+
     fun testMessage(message: String) {
         wlog(message)
     }

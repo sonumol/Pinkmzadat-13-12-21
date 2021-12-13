@@ -5,14 +5,17 @@ import android.app.Application
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.res.Configuration
-import android.util.Base64.*
 import android.view.View
+import com.platinummzadat.qa.data.MzadatRepository
+import com.platinummzadat.qa.data.remote.RemoteDataSource
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.facebook.stetho.Stetho
 import com.fxn.stash.Stash
-import com.platinummzadat.qa.data.MzadatRepository
-import com.platinummzadat.qa.data.remote.RemoteDataSource
+//import com.google.android.gms.analytics.GoogleAnalytics
+//import com.google.android.gms.analytics.Tracker
+import com.google.android.gms.analytics.GoogleAnalytics
+import com.google.android.gms.analytics.Tracker
 import net.gotev.uploadservice.*
 import net.gotev.uploadservice.okhttp.OkHttpStack
 import okhttp3.OkHttpClient
@@ -23,9 +26,7 @@ import raj.nishin.wolfpack.wlog
 import raj.nishin.wolfrequest.ERROR
 import raj.nishin.wolfrequest.WolfRequest
 import java.util.*
-import javax.crypto.Cipher
-import javax.crypto.SecretKeyFactory
-import javax.crypto.spec.DESKeySpec
+
 
 /**
  * Created by WOLF
@@ -50,12 +51,17 @@ const val REGISTRATION_PROFILE_PHOTO = 3
 const val REGISTRATION_COMPLETE = 4*/
 
 class MApp : Application() {
+    private var sAnalytics: GoogleAnalytics?=null
+    private var sTracker: Tracker?=null
     init {
         instance = this
     }
 
     override fun onCreate() {
         super.onCreate()
+        sAnalytics = GoogleAnalytics.getInstance(this);
+
+
         WolfRequest.init(this)
         Stash.init(this)
         //default follow auction set
@@ -105,11 +111,11 @@ class MApp : Application() {
         val initializerBuilder = Stetho.newInitializerBuilder(this)
         // Enable Chrome DevTools
         initializerBuilder.enableWebKitInspector(
-                Stetho.defaultInspectorModulesProvider(this)
+            Stetho.defaultInspectorModulesProvider(this)
         )
         // Enable command line interface
         initializerBuilder.enableDumpapp(
-                Stetho.defaultDumperPluginsProvider(this)
+            Stetho.defaultDumperPluginsProvider(this)
         )
         // Use the InitializerBuilder to generate an Initializer
         val initializer = initializerBuilder.build()
@@ -131,6 +137,15 @@ class MApp : Application() {
             mobileNumber = ""
         }
 
+    }
+
+    @Synchronized
+    fun getDefaultTracker(): Tracker? {
+        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+        if (sTracker == null) {
+            sTracker=sAnalytics!!.newTracker(R.xml.global_tracker)
+        }
+        return sTracker
     }
 }
 
@@ -183,7 +198,7 @@ var trendingSearch: String
 
 
 
-fun View.errorShake(callBack: (() -> Unit)? = null) {
+fun View.errorShake(callBack: (() -> Unit)?=null) {
     YoYo.with(Techniques.Shake)
         .onEnd {
             callBack?.invoke()
@@ -191,7 +206,7 @@ fun View.errorShake(callBack: (() -> Unit)? = null) {
         .playOn(this)
 }
 
-fun View.errorWobble(callBack: (() -> Unit)? = null) {
+fun View.errorWobble(callBack: (() -> Unit)?=null) {
     YoYo.with(Techniques.Wobble)
         .onEnd {
             callBack?.invoke()
@@ -200,14 +215,18 @@ fun View.errorWobble(callBack: (() -> Unit)? = null) {
 }
 
 fun Context.noInternetAlert() {
-    alert(Appcompat, getString(R.string.please_connect_to_a_network), getString(R.string.no_internet)) {
+    alert(
+        Appcompat,
+        getString(R.string.please_connect_to_a_network),
+        getString(R.string.no_internet)
+    ) {
         positiveButton(getString(R.string.ok)) { it.dismiss() }
     }.show()
 
 }
 
 
-fun Activity.getProgressDialog(message: String = "Please wait..."): ProgressDialog {
+fun Activity.getProgressDialog(message: String="Please wait..."): ProgressDialog {
     return ProgressDialog(this).apply {
         setMessage(message)
         setCancelable(false)
@@ -233,11 +252,11 @@ fun Context.uploadFile(
     uploadRequest.addParameter("device_type", "1")
     uploadRequest.addParameter("lang", appLanguage)
     uploadRequest.setNotificationConfig(UploadNotificationConfig().apply {
-        progress.message = "Uploading"
-        completed.message = "Upload Complete"
+        progress.message="Uploading"
+        completed.message="Upload Complete"
         setClearOnActionForAllStatuses(true)
-        completed.autoClear = true
-        progress.autoClear = true
+        completed.autoClear=true
+        progress.autoClear=true
     })
 
     uploadRequest.setMaxRetries(5)

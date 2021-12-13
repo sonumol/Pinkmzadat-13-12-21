@@ -2,16 +2,33 @@ package com.platinummzadat.qa.views.registration.profilephoto
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.ImageQuality
 import com.fxn.utility.PermUtil
 import com.platinummzadat.qa.*
 import com.platinummzadat.qa.views.tosactivity.TermsOfServiceActivity
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+import com.platinummzadat.qa.data.models.ProfileModel
+import com.platinummzadat.qa.networking.DatabaseHelper
+import com.platinummzadat.qa.views.root.drawer.MzNav
 import kotlinx.android.synthetic.main.activity_profile_photo_registration.*
+import kotlinx.android.synthetic.main.activity_profile_photo_registration.ivProfilePhoto
+import kotlinx.android.synthetic.main.fragment_profile.*
 import net.idik.lib.cipher.so.CipherClient
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -19,16 +36,28 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import raj.nishin.wolfpack.*
 import raj.nishin.wolfrequest.ERROR
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.text.NumberFormat
+import kotlin.system.exitProcess
 
 
 class ProfilePhotoRegistrationActivity : MzActivity(), ProfilePhotoContract.View {
     override lateinit var presenter: ProfilePhotoContract.Presenter
     private var path = ""
+    private var user_id = ""
     private lateinit var progress: ProgressDialog
+    private var mTracker: Tracker?=null
+    private lateinit var yourBitmap: Bitmap
+    var outputStream: ByteArrayOutputStream?=null
+    var mDatabaseHelper: DatabaseHelper?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ProfilePhotoPresenter(this)
-        setContentView(com.platinummzadat.qa.R.layout.activity_profile_photo_registration)
+
+        setContentView(R.layout.activity_profile_photo_registration)
+        presenter.fetchProfile()
+        mDatabaseHelper=DatabaseHelper(this)
 
         clProfilePhoto.onClick {
             openCamera()
@@ -50,6 +79,56 @@ class ProfilePhotoRegistrationActivity : MzActivity(), ProfilePhotoContract.View
             startActivity<TermsOfServiceActivity>()
         }
         progress = getProgressDialog()
+
+        val application=application as MApp
+        mTracker=application.getDefaultTracker()
+        mTracker!!.send(
+            HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build()
+        )
+//
+    }
+
+    override fun showData(data: ProfileModel) {
+
+        user_id=data.user_id.toString()
+
+
+        val sharedPreferences: SharedPreferences=this.getSharedPreferences("user_id",
+            Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor =  sharedPreferences.edit()
+        editor.putString("user_id", data.user_id)
+        editor.apply()
+        editor.commit()
+
+
+        val data1=mDatabaseHelper!!.getItemID(data.user_id)
+        if (data1.count == 0) {
+
+            // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+        } else {
+            while (data1.moveToNext()) {
+
+                val path=data1.getString(3)
+                profilePhotoUrl = path
+                ivProfilePhoto?.loadAvatar(profilePhotoUrl, R.drawable.ic_account_circle)
+            }
+        }
+
+//Toast.makeText(applicationContext,""+data.user_id,Toast.LENGTH_LONG).show()
+
+
+    }
+
+
+
+
+    override fun onResume() {
+        super.onResume()
+        mTracker!!.setScreenName("Image~" + "ProfilePhotoRegistrationActivity")
+        mTracker!!.send(HitBuilders.ScreenViewBuilder().build())
     }
 
     private fun uploadPhoto() {
@@ -131,14 +210,41 @@ class ProfilePhotoRegistrationActivity : MzActivity(), ProfilePhotoContract.View
         } else {
             backPressTime = currentLocalTimeInMillis
             toast(getString(R.string.press_back_again_to_exit))
+            finishAffinity()
+            exitProcess(0)
         }
     }
 
 
     private fun uploadPhoto(filePath: String) {
         showLoading()
+//
+        val sharedPreferences: SharedPreferences= this.getSharedPreferences("user_id",
+            Context.MODE_PRIVATE)
+        val user_id = sharedPreferences.getString("user_id","")
+//        val file = File(filePath);
+//        val uri = Uri.fromFile(file);
+//        yourBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+//        val nh=(yourBitmap.height * (1000.0 / yourBitmap.width)).toInt()
+//        val scaled=Bitmap.createScaledBitmap(yourBitmap, 1000, nh, true)
+//        outputStream=ByteArrayOutputStream()
+//        scaled.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//        val path=MediaStore.Images.Media.insertImage(
+//            contentResolver, scaled, "IMG_" + System.currentTimeMillis(), null
+//        )
+
+
+        val data1=mDatabaseHelper!!.getItemID(user_id)
+        if (data1.count == 0) {
+
+            AddData(user_id, "sonumol", filePath)
+
+
+
+            // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+        }
         uploadFile(
-            filePath, CipherClient.serverApi() + "upload_profile_photo"
+            path, CipherClient.serverApi() + "upload_profile_photo"
         ) { status, error ->
             hideLoading()
             when {
@@ -154,4 +260,27 @@ class ProfilePhotoRegistrationActivity : MzActivity(), ProfilePhotoContract.View
             }
         }
     }
+    fun AddData(user_id: String, Name: String?, Path: String?) {
+
+
+        val insertData=
+            mDatabaseHelper!!.addData(user_id, Name, Path)
+        if (insertData) {
+            val data=mDatabaseHelper!!.data
+            if (data.count == 0) {
+                // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+            } else {
+                while (data.moveToNext()) {
+                    val id=data.getString(0)
+                    val name=data.getString(1)
+                    val quantity=data.getString(2)
+
+
+
+//                    Toast.makeText(MApp.applicationContext(),"t"+data.getString(1),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
 }

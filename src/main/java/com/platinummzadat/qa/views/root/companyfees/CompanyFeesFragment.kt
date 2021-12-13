@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.platinummzadat.qa.MzFragment
 import com.platinummzadat.qa.R
-import com.platinummzadat.qa.data.models.CompanyFeesModel
 import com.platinummzadat.qa.data.models.CompanyFeesRespose
 import com.platinummzadat.qa.noInternetAlert
 import kotlinx.android.synthetic.main.fragment_company_fees.*

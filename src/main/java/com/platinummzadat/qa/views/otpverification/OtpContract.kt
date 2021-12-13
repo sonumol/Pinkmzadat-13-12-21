@@ -5,7 +5,7 @@ import com.platinummzadat.qa.BaseView
 
 interface OtpContract {
     interface View : BaseView<Presenter> {
-        fun showSuccessLogin()
+        fun showSuccessLogin( data : String)
         fun showSuccessRegister()
         fun showTimeError()
         fun showCompanyCheck()
@@ -17,7 +17,7 @@ interface OtpContract {
         fun showFailed()
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter :BasePresenter {
         fun verifyOtp(otp: String,mobile:String)
         fun resendOtp(hash:String,mobile: String)
     }

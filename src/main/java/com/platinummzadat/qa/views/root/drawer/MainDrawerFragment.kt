@@ -1,6 +1,8 @@
 package com.platinummzadat.qa.views.root.drawer
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +28,11 @@ class MainDrawerFragment : MzFragment() {
     }
 
     fun setUserDetails() {
-        ivProfile.loadAvatar(profilePhotoUrl, R.drawable.ic_nav_account)
+        val sharedPreferences: SharedPreferences= context!!.getSharedPreferences("path",
+            Context.MODE_PRIVATE)
+        val path = sharedPreferences.getString("path","")
+        ivProfile.loadAvatar(path.toString(), R.drawable.ic_nav_account)
+//        ivProfile.loadAvatar(profilePhotoUrl, R.drawable.ic_nav_account)
         tvUsername.text = username
         tvMobileNumber.text = mobileNumber
     }

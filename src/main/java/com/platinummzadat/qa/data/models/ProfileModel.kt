@@ -12,6 +12,8 @@ data class ProfileModel(
     @SerializedName("profile_photo") val profilePhoto: String,
     @SerializedName("mobile") val mobile: String,
     @SerializedName("email") val email: String,
+    @SerializedName("user_id") val user_id: String,
+
     @SerializedName("deposit_phone") val depositPhone: String,
 //    @SerializedName("qatar_id_image")
     val qidImage: String="http://hhhh.hh",

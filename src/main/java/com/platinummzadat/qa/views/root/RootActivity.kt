@@ -2,11 +2,14 @@ package com.platinummzadat.qa.views.root
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.platinummzadat.qa.*
@@ -15,11 +18,12 @@ import com.platinummzadat.qa.data.models.DashboardItemModel
 import com.platinummzadat.qa.data.models.WinningBidsDetails
 import com.platinummzadat.qa.views.login.LoginActivity
 import com.platinummzadat.qa.views.root.aboutus.AboutUsFragment
-import com.platinummzadat.qa.views.root.auctions.*
+import com.platinummzadat.qa.views.root.auctions.AUCTION_MODE_MY_BIDS
+import com.platinummzadat.qa.views.root.auctions.AUCTION_MODE_SEARCH
+import com.platinummzadat.qa.views.root.auctions.AUCTION_MODE_WISHING_BIDS
+import com.platinummzadat.qa.views.root.auctions.AuctionsFragment
 import com.platinummzadat.qa.views.root.company.CompanyRegisterFragment
 import com.platinummzadat.qa.views.root.companyfees.CompanyFeesFragment
-import com.platinummzadat.qa.views.root.companyfees.WinningBidsFragment
-import com.platinummzadat.qa.views.root.companyfees.WinningBidsPaymentFragment
 import com.platinummzadat.qa.views.root.contactus.ContactUsFragment
 import com.platinummzadat.qa.views.root.dashboard.DashboardFragment
 import com.platinummzadat.qa.views.root.depositamount.DepositAmountFragment
@@ -30,11 +34,18 @@ import com.platinummzadat.qa.views.root.drawer.MzNav.*
 import com.platinummzadat.qa.views.root.faq.FAQFragment
 import com.platinummzadat.qa.views.root.notifications.NotificationsFragment
 import com.platinummzadat.qa.views.root.profile.ProfileFragment
-import com.platinummzadat.qa.views.root.profile.deposit.PaymentActivity
 import com.platinummzadat.qa.views.root.tac.TermsAndConditionsFragment
 import com.platinummzadat.qa.views.splash.SplashActivity
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+import com.platinummzadat.qa.data.models.DashboardModel
+import com.platinummzadat.qa.networking.DatabaseHelper
+import com.platinummzadat.qa.views.root.companyfees.WinningBidsFragment
+import com.platinummzadat.qa.views.root.companyfees.WinningBidsPaymentFragment
+import com.platinummzadat.qa.views.root.profile.ProfileFragment1
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.appbar_root.*
+import kotlinx.android.synthetic.main.fragment_main_drawer.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
 import org.jetbrains.anko.design.indefiniteSnackbar
@@ -43,14 +54,23 @@ import org.jetbrains.anko.share
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import raj.nishin.wolfpack.clearAndShow
+import raj.nishin.wolfpack.loadAvatar
 import raj.nishin.wolfpack.replaceFragment
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.system.exitProcess
 
 
 class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
     override lateinit var presenter: RootContract.Presenter
     lateinit var progress: ProgressDialog
+    private var mTracker: Tracker?=null
+    var refresh = false
+    private val sharedPrefFile = "kotlinsharedpreference"
     val dashboardFragment by lazy { DashboardFragment() }
+    var mDatabaseHelper: DatabaseHelper?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         RootPresenter(this)
@@ -60,21 +80,37 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
             this,
             drawer_layout,
             toolbar,
-            com.platinummzadat.qa.R.string.navigation_drawer_open,
-            com.platinummzadat.qa.R.string.navigation_drawer_close
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         replaceFragment(dashboardFragment, R.id.container)
+        mDatabaseHelper=DatabaseHelper(this)
+
+        presenter.fetchDashboard()
         progress = ProgressDialog(this)
         progress.setMessage(getString(R.string.please_wait))
         progress.setCancelable(false)
         handleEntry(intent)
+//
+        val application=application as MApp
+        mTracker=application.getDefaultTracker()
+        mTracker!!.send(
+            HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build()
+        )
+//
 
     }
     override fun onResume() {
         super.onResume()
-        setTitle(getString(com.platinummzadat.qa.R.string.REGISTER_AS_COMPANY))
+        //setTitle(getString(R.string.REGISTER_AS_COMPANY))
+        dashboardFragment.refresh = true
+        mTracker!!.setScreenName("Image~" + "RootActivity")
+        mTracker!!.send(HitBuilders.ScreenViewBuilder().build())
     }
 
     private fun handleEntry(intent: Intent?) {
@@ -138,13 +174,36 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
 
     override fun sessionTimeOut() {
     }
+    override fun showDashboard(data: DashboardModel) {
+//        Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+//        val data1=mDatabaseHelper!!.getItemID(data.user_id)
+//        if (data1.count == 0) {
+//
+//            // Toast.makeText(MApp.applicationContext(), "no elements", Toast.LENGTH_SHORT).show();
+//        } else {
+//            while (data1.moveToNext()) {
+//
+//                val path=data1.getString(3)
+//                profilePhotoUrl = path
+//                // Toast.makeText(applicationContext,"aaa"+path,Toast.LENGTH_LONG).show()
+//                ivProfile.loadAvatar(path.toString(), R.drawable.ic_nav_account)
+//                val sharedPreferences: SharedPreferences=this.getSharedPreferences("path",
+//                    Context.MODE_PRIVATE)
+//                val editor: SharedPreferences.Editor =  sharedPreferences.edit()
+//                editor.putString("path", path)
+//                editor.apply()
+//                editor.commit()
+//            }
+//        }
 
+
+    }
     override fun onError(callback: () -> Unit) {
-        onErrorWithMessage(getString(com.platinummzadat.qa.R.string.some_error_occurred_try_again), null, callback)
+        onErrorWithMessage(getString(R.string.some_error_occurred_try_again), null, callback)
     }
 
     override fun onErrorWithMessage(message: String, actionText: String?, callback: () -> Unit) {
-        root.indefiniteSnackbar(message, actionText ?: getString(com.platinummzadat.qa.R.string.retry)) {
+        root.indefiniteSnackbar(message, actionText ?: getString(R.string.retry)) {
             callback.invoke()
         }
     }
@@ -154,7 +213,7 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
         actionText: String?,
         callback: () -> Unit
     ) {
-        root.longSnackbar(message, actionText ?: getString(com.platinummzadat.qa.R.string.retry)) {
+        root.longSnackbar(message, actionText ?: getString(R.string.retry)) {
             callback.invoke()
         }
     }
@@ -168,7 +227,15 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
     }
 
     override fun onSelectAuctionItem(item: AuctionItemModel) {
+      //  Toast.makeText(applicationContext,""+item.listing_count,Toast.LENGTH_LONG).show()
         replaceFragment(DetailsFragment.newInstance(item.id), R.id.container, true)
+        val sharedPreferences: SharedPreferences= this.getSharedPreferences("item.listing_count",
+            Context.MODE_PRIVATE)
+        val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+        editor.putInt("item.listing_count", item.listing_count)
+        editor.apply()
+        editor.commit()
+
     }
 
     override fun onSelectWinningBidItem(item: WinningBidsDetails) {
@@ -186,7 +253,21 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
     override fun setTitle(title: String) {
         toolbar.title = title
     }
+    override fun onapprove(id:Int) {
+        // Toast.makeText(applicationContext,"sony"+id,Toast.LENGTH_LONG).show()
+//       confirm==id
 
+        val sharedPreferences: SharedPreferences= this.getSharedPreferences("approvedid",
+            Context.MODE_PRIVATE)
+        val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+//        val name:String =radioButton.text.toString()
+        editor.putInt("id", id)
+        editor.apply()
+        editor.commit()
+
+
+
+    }
     override fun onSelectNavItem(navItem: MzNav) {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -198,6 +279,7 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
 
             MY_PROFILE -> {
                 if (-1 != currentUserId) {
+                    refresh = true
                     replaceFragment(ProfileFragment(), R.id.container, true)
                 } else {
                     showLoginSnack()
@@ -216,7 +298,7 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
                     replaceFragment(
                         AuctionsFragment.newInstance(
                             -1,
-                            getString(com.platinummzadat.qa.R.string.my_bids),
+                            getString(R.string.my_bids),
                             AUCTION_MODE_MY_BIDS
                         ),
                         R.id.container,
@@ -232,7 +314,7 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
                     replaceFragment(
                         AuctionsFragment.newInstance(
                             -1,
-                            getString(com.platinummzadat.qa.R.string.wishing_bids),
+                            getString(R.string.wishing_bids),
                             AUCTION_MODE_WISHING_BIDS
                         ),
                         R.id.container,
@@ -278,11 +360,29 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
                 replaceFragment(FAQFragment(), R.id.container, true)
             }
             REGISTER_AS_COMPANY -> {
-                if (-1 != currentUserId) {
+                val sharedPreferences: SharedPreferences= this.getSharedPreferences("approvedid",
+                    Context.MODE_PRIVATE)
+                val confirm = sharedPreferences.getInt("id",0)
+                if(confirm==0)
+                {
+
+//                   Snackbar.make(view,getString(R.string.only_approved_person),
+//                       Snackbar.LENGTH_LONG).setAction("Action",null).show()
+                    root.longSnackbar(getString(R.string.only_approved_person), getString(R.string.cancel)) {
+                        startActivity<RootActivity>()
+                        finish()
+                    }
+                }
+
+                else if(confirm==1)
+                {
                     replaceFragment(CompanyRegisterFragment(), R.id.container, true)
-                } else {
+                }
+                else
+                {
                     showLoginSnack()
                 }
+
 
             }
             RATE_APP -> {
@@ -340,16 +440,20 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(com.platinummzadat.qa.R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                alert(Appcompat, getString(R.string.language_change_message), getString(R.string.change_language)) {
+                alert(
+                    Appcompat,
+                    getString(R.string.language_change_message),
+                    getString(R.string.change_language)
+                ) {
                     positiveButton(getString(R.string.restart2)) {
-                        appLanguage = if ("en" == appLanguage) "ar" else "en"
+                        appLanguage=if ("en" == appLanguage) "ar" else "en"
                         startActivity<SplashActivity>()
                         finish()
 //                        recreate()
@@ -371,13 +475,42 @@ class RootActivity : MzActivity(),MzFragmentListener, RootContract.View {
             if (0 == supportFragmentManager.backStackEntryCount)
                 alert(Appcompat, getString(R.string.sure_exit_now), getString(R.string.exit)) {
                     positiveButton(getString(R.string.exit)) {
-                        presenter.updateLastActive()
-                        it.dismiss()
+
+//
+//                        val simpleDateFormat = SimpleDateFormat("dd MMM yyyy, hh:mm:a ")
+//                        val currentDateAndTime: String = simpleDateFormat.format(Date())
+                        val date=Date()
+                        val df: DateFormat=SimpleDateFormat("dd MMM yyyy, hh:mm:a" ,Locale.ENGLISH)//
+                        df.setTimeZone(TimeZone.getTimeZone("Asia/Qatar"))
+                       // )
+
+                        val sharedPreferences: SharedPreferences = getSharedPreferences(
+                            sharedPrefFile,
+                            Context.MODE_PRIVATE
+                        )
+                        val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+                        editor.putString("date", df.format(date))
+
+                        editor.apply()
+                        editor.commit()
+//                        val simpleDateFormat1 = SimpleDateFormat("hh:mm:a ")
+//                        val currentDateAndTime1: String = simpleDateFormat1.format(Date())
+//                        if(currentDateAndTime1=="12:00:AM ")
+//                        {
+//                            presenter.updateLastActive()
+//                              }
+                        finishAffinity()
+                        exitProcess(0)
+
                     }
                     negativeButton(getString(R.string.cancel)) {
                         it.dismiss()
                     }
                 }.show()
+
+
+
+
             else
                super.onBackPressed()
         }

@@ -20,17 +20,18 @@ interface DetailsContract {
     }
 
     interface Presenter : BasePresenter {
-        fun fetchData(itemId: Int)
+        fun fetchData(itemId: Int,type:Int)
         fun placeBid(
             auctionId: Int,
-            amount: Double
+            amount: Double,
+            type: Int
         )
 
         fun addToWishList(
             auctionId: Int
         )
 
-        fun refreshAuction(itemId: Int)
+        fun refreshAuction(itemId: Int,type: Int)
         fun submitFeedback(itemId: Int, feedback: String)
     }
 }

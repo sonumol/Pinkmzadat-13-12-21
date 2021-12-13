@@ -1,6 +1,8 @@
 package com.platinummzadat.qa.views.root.contactus
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,11 +29,12 @@ class ContactUsFragment : MzFragment(), ContactUsContract.View {
         if (firstLoad){
             presenter.fetchContactUs()
         }
+
     }
 
     override fun showData(data: ContactUsModel) {
         llPhone.onClick {
-            activity?.dialNumber(data.telephone)
+            activity?.dialNumber(data.call)
         }
         /*llMap.onClick {
             startActivity(
@@ -41,12 +44,19 @@ class ContactUsFragment : MzFragment(), ContactUsContract.View {
                 )
             )
         }*/
+        whatsapp.onClick {
+            val url="https://api.whatsapp.com/send?phone=${data.whatsapp}"
+            val i=Intent(Intent.ACTION_VIEW)
+            i.data=Uri.parse(url)
+            startActivity(i)
+        }
         llEmail.onClick {
             activity?.email(data.email)
         }
         tvEmail?.text = data.email
         tvAddress?.text = data.address
-        tvPhone?.text = "Tel ${data.telephone}\nFax ${data.fax}"
+        tvPhone?.text = "Tel ${data.telephone}"
+        tvwhatsapp.text=data.whatsapp
         content?.visibility(visible)
     }
 
@@ -75,11 +85,11 @@ class ContactUsFragment : MzFragment(), ContactUsContract.View {
         savedInstanceState: Bundle?
     ): View? {
         ContactUsPresenter(this)
-        return super.onCreateView(com.platinummzadat.qa.R.layout.fragment_contact_us, inflater, container)
+        return super.onCreateView(R.layout.fragment_contact_us, inflater, container)
     }
 
     override fun onResume() {
         super.onResume()
-        fragmentListener?.setTitle(getString(com.platinummzadat.qa.R.string.nav_contact_us))
+        fragmentListener?.setTitle(getString(R.string.nav_contact_us))
     }
 }

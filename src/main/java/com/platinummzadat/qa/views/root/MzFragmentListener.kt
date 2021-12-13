@@ -21,4 +21,5 @@ interface MzFragmentListener {
     fun onSelectAuctionItem(item: AuctionItemModel)
     fun onSelectWinningBidItem(item: WinningBidsDetails)
     fun onSelectNavItem(item: MzNav)
+    fun onapprove(approve:Int)
 }

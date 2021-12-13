@@ -129,7 +129,11 @@
     <string name="deposit_amount_required"> مبلغ التأمين المطلوب : ر.ق: %1$s  </string>
     <string name="greet_format">  مرحبا، %1$s  </string>
     <string name="try_with_diffferent_data">  يرجى المحاولة بتفاصيل مختلفة  </string>
-    <string name="last_login_format"> آخر تسجيل دخول: %1$s  </string>
+    <!--    <string name="last_login_format1"> آخر تسجيل دخول: %1$s  </string>-->
+    <!--    <string name="last_login_format1"> آخر تسجيل دخول: %1$s  </string>-->
+
+    <string name="lastara"> آخر تسجيل دخول </string>
+
     <string name="qatar_id_format">   البطاقة الشخصية  : %1$s   </string>
     <string name="my_bids_format">  %1$d\nمزايداتي  </string>
     <string name="winning_bids_format">  %1$d\nالمزايدات الفائزة   </string>
@@ -185,6 +189,9 @@
     <string name="you_are_the_last_bidder">  صاحب المزايده الاخيره  </string>
     <string name="upload_both_sides_of_your_qatar_id">  الرجاء تحميل الوجه الامامي والخلفي للبطاقة الشخصية القطريه  </string>
     <string name="make_payment"> ادفع  </string>
+    <string name="whatsapp">واتساب</string>
+    <string name="starton">يبدأ بعد</string>
+    <string name="expireson">ينتهي بعد</string>
     <string name="email">   البريد الإلكتروني    </string>
     <string name="phone_number">  رقم الهاتف  </string>
     <string name="office_address"> عنوان المكتب  </string>
@@ -209,16 +216,19 @@
     <string name="update"> تحديث التطبيق </string>
     <string name="personal"> شخصي </string>
     <string name="company"> شركة </string>
-    <string name="register_as_company"> التسجيل كشركة </string>
+    <string name="register_as_company">سجل الشركة </string>
     <string name="label_register_as_company">Please submit the following form to register your company for participating Auction</string>
     <string name="enter_company_name" > أدخل اسم الشركة </string>
     <string name="enter_company_registration" > ادخل رقم قيد المنشأة </string>
+<!--    <string name="enter_auth_signee_qid"> ادخل رقم بطاقة المفوض من الشركة </string>-->
     <string name="enter_auth_signee_qid"> ادخل رقم بطاقة المفوض من الشركة </string>
+
+
     <string name="select_file">Select File</string>
     <string name="attach_company_cr_copy"> الرجاء إرفاق بطاقة قيد المنشأة </string>
-    <string name="attach_autherised_signee_id"> الرجاء إرفاق صورة البطاقة للمفوض بالمزايده </string>
+    <string name="attach_autherised_signee_id">ارفق الرقم الشخصي للعارض المفوض </string>
     <string name="attach_auth_letter"> كتاب تفويض للمزايده باسم الشركه </string>
-    <string name="REGISTER_AS_COMPANY"> التسجيل كشركة </string>
+    <string name="REGISTER_AS_COMPANY">سجل الشركة </string>
     <string name="company_details_updated"> تم تحديث تفاصيل الشركة </string>
     <string name="company_details_update_failed"> فشل تحديث تفاصيل الشركة. حاول مرة أخري  </string>
     <string name="enter_valid_computer_card_number">  الرجاء إدخال رقم بطاقة كمبيوتر صحيح  </string>
@@ -228,4 +238,14 @@
     <string name="authorisation_letter_uploaded"> تم تحميل خطاب التفويض   </string>
     <string name="authorisation_signee_id_copy_uploaded"> تم تحميل نسخة من هوية التوقيع المفوض </string>
     <string name="company_cr_uploaded"> تم تحميل نسخة السجل التجاري للشركة </string>
+    <string name="enter_CR">سجل رقم قيد المنشأة</string>
+    <string name="invalid_credentials3">  قام شخص آخر بالتسجيل باستخدام رقم السجل التجاري. يرجى المحاولة مع سجل تجاري جديد أو الاتصال بالمسؤول على 40093636  </string>
+    <string name="approved_person_can_resister">يمكن فقط للمستخدم الشخصي المعتمد التسجيل كشركة.  يرجى التسجيل كمستخدم شخصي وحاول مرة أخرى لتسجيل الشركة</string>
+    <string name="login_duplicate_mobile">لتسجيل الدخول: يجب أن يتطابق رقم قيد المنشأة ورقم الهاتف الجوال.
+ للتسجيل الجديد: يجب ان لا يكون رقم قيد المنشأة ورقم الهاتف الجوال مسجلين م</string>
+    <string name="only_approved_person">يمكن للمستخدم الشخصي المعتمد التسجيل كشركة فقط</string>
+    <string name="autherised_signee_id_qidNum">رقم البطاقة الشخصية للعارض المفوض</string>
+    <string name="authorized_signee_id_copy">نسخة من هوية مقدم العطاء المعتمد</string>
+    <string name="computer_card_cpoy" >Computer Card Copy</string>
+    <string name="companyName">Company Name</string>
 </resources>

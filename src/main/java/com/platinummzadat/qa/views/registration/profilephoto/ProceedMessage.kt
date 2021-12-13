@@ -7,7 +7,6 @@ import com.platinummzadat.qa.R
 import com.platinummzadat.qa.views.root.RootActivity
 import kotlinx.android.synthetic.main.activity_proceed_message.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.startActivity
 
 
 class ProceedMessage : AppCompatActivity() {

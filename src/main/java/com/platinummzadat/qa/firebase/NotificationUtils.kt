@@ -266,8 +266,10 @@ class NotificationUtils(private val mContext: Context) {
             } else {
                 val taskInfo = am.getRunningTasks(1)
                 val componentInfo = taskInfo[0].topActivity
-                if (componentInfo.packageName == context.getPackageName()) {
-                    isInBackground = false
+                if (componentInfo != null) {
+                    if (componentInfo.packageName == context.getPackageName()) {
+                        isInBackground = false
+                    }
                 }
             }
 

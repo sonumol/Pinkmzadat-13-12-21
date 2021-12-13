@@ -2,13 +2,9 @@ package com.platinummzadat.qa
 
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.platinummzadat.qa.views.root.MzFragmentListener
 

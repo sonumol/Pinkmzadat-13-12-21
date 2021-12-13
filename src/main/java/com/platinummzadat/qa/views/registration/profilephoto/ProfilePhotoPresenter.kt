@@ -33,4 +33,29 @@ class ProfilePhotoPresenter(private val view: ProfilePhotoContract.View) : Profi
             }
         }
     }
+
+    override fun fetchProfile() {
+       // view.showLoading()
+        MzRepo.fetchProfile(currentUserId) { status, data, error ->
+           // view.hideLoading()
+            when {
+                error == ERROR.API_ERROR -> {
+                    view.showApiError()
+                }
+                error == ERROR.NO_INTERNET -> {
+                    view.showNoInternet()
+                }
+                null == data -> {
+                    view.showEmptyData()
+                }
+                status -> {
+                    view.showData(data)
+                }
+                else -> {
+                    view.showApiError()
+                }
+            }
+        }
+    }
+
 }
