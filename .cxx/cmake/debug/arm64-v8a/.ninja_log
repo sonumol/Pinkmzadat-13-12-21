@@ -1,0 +1,94 @@
+# ninja log v5
+16	731	660915303	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+3	793	660915303	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+794	1299	660915303	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+16	934	660915381	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+3	1040	660915381	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+1040	1386	660915382	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+2	670	660915426	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+14	678	660915426	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+678	833	660915426	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+3	694	660915502	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+15	703	660915502	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+704	1189	660915502	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+19	804	660915688	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+3	869	660915688	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+870	1578	660915689	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+18	938	660916004	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+3	987	660916004	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+987	1361	660916004	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+3	979	660916040	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+16	990	660916040	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+990	1310	660916040	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+3	1158	660916181	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+15	1171	660916181	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+1172	2980	660916183	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+6	1013	660916260	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+33	1043	660916260	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+1043	1445	660916260	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+19	933	660916652	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+4	1041	660916653	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+1042	1448	660916653	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+35	4411	660921419	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+23	4419	660921419	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+4419	6430	660921421	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+471	17014	660922266	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+203	17023	660922266	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+17024	20095	660922269	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+3	911	660922391	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+15	960	660922392	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+960	1248	660922392	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+17	744	660922528	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+4	797	660922528	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+797	1088	660922528	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+120	8889	660923113	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+24	8902	660923113	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+8902	10850	660923115	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+12	707	660923344	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+2	777	660923344	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+777	1090	660923345	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+67	893	660925669	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+50	947	660925669	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+947	1329	660925670	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+88	3708	660925886	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+367	4777	660925887	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+4777	6735	660925889	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+3	4233	660925947	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+43	4243	660925947	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+4243	7357	660925951	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+4	5863	660926162	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+128	5865	660926162	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+5865	8822	660926166	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+2	2156	660926273	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+14	2167	660926273	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+2167	7520	660926278	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+140	11345	660926850	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+528	11355	660926850	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+11355	14899	660926853	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+18	813	660927139	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+3	995	660927139	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+995	1503	660927140	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+47	17200	660927673	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+1324	17210	660927673	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+17210	20493	660927677	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+47	3463	661072399	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+63	3471	661072399	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+3471	5336	661072401	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+17	831	661072495	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+3	850	661072495	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+850	1089	661072495	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+38	7755	661075204	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+50	7779	661075204	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+7780	9782	661075206	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+16	786	661075281	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+3	834	661075281	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+835	1088	661075281	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+14	695	661075398	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+3	896	661075398	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+897	1245	661075399	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+17	760	661075879	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+2	804	661075879	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+804	1165	661075879	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe
+15	708	661076077	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	5e96426f75dad2c7
+2	845	661076077	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	eab26b6e0c84d452
+845	1061	661076077	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/arm64-v8a/libcipher-lib.so	144a34ac98afb9fe

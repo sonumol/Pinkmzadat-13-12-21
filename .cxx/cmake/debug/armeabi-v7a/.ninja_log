@@ -1,0 +1,4 @@
+# ninja log v5
+14	1391	660923621	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/Environments.cpp.o	4843887eb218375a
+26	1433	660923621	cipher.out/CMakeFiles/cipher-lib.dir/src/main/cpp/cipher-lib.cpp.o	cab6251e8e8af261
+1433	2439	660923622	E:/Weblanza/mzadat new/pink_mzadat/MzadatBlack-20191104/MzadatBlack/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libcipher-lib.so	3ec683c7bf6a9c51

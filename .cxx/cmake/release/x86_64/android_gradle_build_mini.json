@@ -1,0 +1,23 @@
+{
+  "buildFiles": [
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\build\\cmake\\platforms.cmake",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\build\\cmake\\android-legacy.toolchain.cmake",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\build\\cmake\\android.toolchain.cmake",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\build\\cmake\\compiler_id.cmake",
+    "E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\build\\cipher.so\\CMakeLists.txt",
+    "E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\build\\cipher.so\\cmake\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\.cxx\\cmake\\release\\x86_64\" clean"
+  ],
+  "buildTargetsCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\.cxx\\cmake\\release\\x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "cipher-lib-Release-x86_64": {
+      "artifactName": "cipher-lib",
+      "buildCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\.cxx\\cmake\\release\\x86_64\" cipher-lib",
+      "abi": "x86_64",
+      "output": "E:\\Weblanza\\mzadat new\\pink_mzadat\\MzadatBlack-20191104\\MzadatBlack\\app\\build\\intermediates\\cmake\\release\\obj\\x86_64\\libcipher-lib.so",
+      "runtimeFiles": []
+    }
+  }
+}
